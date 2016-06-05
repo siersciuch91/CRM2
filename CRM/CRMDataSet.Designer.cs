@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace CRM {
+namespace CRM.GUI {
     
     
     /// <summary>
@@ -612,7 +612,7 @@ namespace CRM {
         }
     }
 }
-namespace CRM.CRMDataSetTableAdapters {
+namespace CRM.GUI.CRMDataSetTableAdapters {
     
     
     /// <summary>
@@ -750,7 +750,7 @@ namespace CRM.CRMDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::CRM.Properties.Settings.Default.CRMConnectionString;
+            this._connection.ConnectionString = global::CRM.GUI.Properties.Settings.Default.CRMConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -1,4 +1,4 @@
-﻿namespace CRM.Mail
+﻿namespace CRM.GUI.Mail
 {
     partial class frmMessage
     {

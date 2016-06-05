@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CRM.Mail
+namespace CRM.GUI.Mail
 {
     public partial class frmMessage : Form
     {

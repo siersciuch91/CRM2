@@ -1,4 +1,4 @@
-﻿namespace CRM.Mail
+﻿namespace CRM.GUI.Mail
 {
     partial class frmInbox
     {
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.cRMDataSet = new CRM.CRMDataSet();
+            this.cRMDataSet = new CRM.GUI.CRMDataSet();
             this.uSERSBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.uSERSTableAdapter = new CRM.CRMDataSetTableAdapters.USERSTableAdapter();
+            this.uSERSTableAdapter = new CRM.GUI.CRMDataSetTableAdapters.USERSTableAdapter();
             this.lvInbox = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.cRMDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uSERSBindingSource)).BeginInit();

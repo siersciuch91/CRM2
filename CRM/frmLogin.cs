@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CRM
+namespace CRM.GUI
 {
     public partial class frmLogin : Form
     {
+        public bool loginState = false;
+
         public frmLogin()
         {
             InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

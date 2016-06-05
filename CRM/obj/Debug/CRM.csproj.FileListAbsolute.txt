@@ -24,3 +24,4 @@ C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.Ma
 C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.Mail.frmMessage.resources
 C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\Interop.ADODB.dll
 C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.csproj.ResolveComReference.cache
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\bin\Debug\CRM.GUI.exe.config

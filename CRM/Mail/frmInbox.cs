@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using ActiveUp.Net.Mail;
 
-namespace CRM.Mail
+namespace CRM.GUI.Mail
 {
     public partial class frmInbox : Form
     {

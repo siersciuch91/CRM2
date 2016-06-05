@@ -1,4 +1,4 @@
-﻿namespace CRM.Mail
+﻿namespace CRM.GUI.Mail
 {
     partial class frmSendMail
     {
@@ -29,29 +29,22 @@
         private void InitializeComponent()
         {
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.txtMailText = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtTittle = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(75, 31);
+            this.txtAddress.Location = new System.Drawing.Point(12, 21);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(100, 20);
+            this.txtAddress.Size = new System.Drawing.Size(337, 20);
             this.txtAddress.TabIndex = 0;
-            // 
-            // txtMailText
-            // 
-            this.txtMailText.Location = new System.Drawing.Point(60, 125);
-            this.txtMailText.Multiline = true;
-            this.txtMailText.Name = "txtMailText";
-            this.txtMailText.Size = new System.Drawing.Size(388, 159);
-            this.txtMailText.TabIndex = 1;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(607, 152);
+            this.btnSend.Location = new System.Drawing.Point(12, 267);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 2;
@@ -61,22 +54,40 @@
             // 
             // txtTittle
             // 
-            this.txtTittle.Location = new System.Drawing.Point(75, 67);
+            this.txtTittle.Location = new System.Drawing.Point(12, 61);
             this.txtTittle.Name = "txtTittle";
-            this.txtTittle.Size = new System.Drawing.Size(100, 20);
+            this.txtTittle.Size = new System.Drawing.Size(430, 20);
             this.txtTittle.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(390, 21);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(52, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 98);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(430, 96);
+            this.richTextBox1.TabIndex = 5;
+            this.richTextBox1.Text = "";
             // 
             // frmSendMail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 387);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtTittle);
             this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.txtMailText);
             this.Controls.Add(this.txtAddress);
             this.Name = "frmSendMail";
-            this.Text = "SendMail";
+            this.Text = "Wyślij wiadomość";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,8 +96,9 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.TextBox txtMailText;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox txtTittle;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

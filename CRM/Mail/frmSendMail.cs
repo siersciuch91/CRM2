@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CRM.Mail
+namespace CRM.GUI.Mail
 {
     public partial class frmSendMail : Form
     {
@@ -23,7 +23,6 @@ namespace CRM.Mail
             cSendMail sendMail = new cSendMail();
             sendMail.setMailAddress(txtAddress.Text);
             sendMail.setMailTittle(txtTittle.Text);
-            sendMail.setMailText(txtMailText.Text);
             sendMail.sendMail();
         }
     }
