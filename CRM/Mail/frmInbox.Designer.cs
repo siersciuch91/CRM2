@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.cRMDataSet = new CRM.GUI.CRMDataSet();
+            this.cRMDataSet = new global::CRM.GUI.CRMDataSet();
             this.uSERSBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.uSERSTableAdapter = new CRM.GUI.CRMDataSetTableAdapters.USERSTableAdapter();
+            this.uSERSTableAdapter = new global::CRM.GUI.CRMDataSetTableAdapters.USERSTableAdapter();
             this.lvInbox = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.cRMDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uSERSBindingSource)).BeginInit();
