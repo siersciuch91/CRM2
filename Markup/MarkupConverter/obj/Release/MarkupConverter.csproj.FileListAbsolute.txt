@@ -1,0 +1,5 @@
+C:\Users\Grzegoreka\Documents\Visual Studio 2010\Projects\Markup\MarkupConverter\bin\Release\MarkupConverter.dll
+C:\Users\Grzegoreka\Documents\Visual Studio 2010\Projects\Markup\MarkupConverter\bin\Release\MarkupConverter.pdb
+C:\Users\Grzegoreka\Documents\Visual Studio 2010\Projects\Markup\MarkupConverter\obj\Release\MarkupConverter.dll
+C:\Users\Grzegoreka\Documents\Visual Studio 2010\Projects\Markup\MarkupConverter\obj\Release\MarkupConverter.pdb
+C:\Users\Grzegoreka\Documents\Visual Studio 2010\Projects\Markup\MarkupConverter\bin\Release\WindowsBase.dll

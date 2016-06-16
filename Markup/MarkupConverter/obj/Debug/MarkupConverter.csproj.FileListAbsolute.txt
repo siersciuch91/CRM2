@@ -1,0 +1,5 @@
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\Markup\MarkupConverter\bin\Debug\MarkupConverter.dll
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\Markup\MarkupConverter\bin\Debug\MarkupConverter.pdb
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\Markup\MarkupConverter\bin\Debug\WindowsBase.dll
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\Markup\MarkupConverter\obj\Debug\MarkupConverter.dll
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\Markup\MarkupConverter\obj\Debug\MarkupConverter.pdb
