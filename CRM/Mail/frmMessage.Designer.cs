@@ -28,43 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtMailAddress = new System.Windows.Forms.TextBox();
+            this.txtTittle = new System.Windows.Forms.TextBox();
+            this.txtMessText = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtMailAddress
             // 
-            this.textBox1.Location = new System.Drawing.Point(43, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(689, 20);
-            this.textBox1.TabIndex = 0;
+            this.txtMailAddress.Location = new System.Drawing.Point(43, 12);
+            this.txtMailAddress.Name = "txtMailAddress";
+            this.txtMailAddress.Size = new System.Drawing.Size(689, 20);
+            this.txtMailAddress.TabIndex = 0;
             // 
-            // textBox2
+            // txtTittle
             // 
-            this.textBox2.Location = new System.Drawing.Point(43, 38);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(689, 20);
-            this.textBox2.TabIndex = 1;
+            this.txtTittle.Location = new System.Drawing.Point(43, 38);
+            this.txtTittle.Name = "txtTittle";
+            this.txtTittle.Size = new System.Drawing.Size(689, 20);
+            this.txtTittle.TabIndex = 1;
             // 
-            // textBox3
+            // txtMessText
             // 
-            this.textBox3.Location = new System.Drawing.Point(43, 64);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(689, 230);
-            this.textBox3.TabIndex = 2;
+            this.txtMessText.Location = new System.Drawing.Point(43, 64);
+            this.txtMessText.Multiline = true;
+            this.txtMessText.Name = "txtMessText";
+            this.txtMessText.Size = new System.Drawing.Size(689, 230);
+            this.txtMessText.TabIndex = 2;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(43, 300);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(689, 97);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // frmMessage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 322);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(773, 404);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.txtMessText);
+            this.Controls.Add(this.txtTittle);
+            this.Controls.Add(this.txtMailAddress);
             this.Name = "frmMessage";
             this.Text = "frmMessage";
+            this.Load += new System.EventHandler(this.frmMessage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -72,8 +83,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtMailAddress;
+        private System.Windows.Forms.TextBox txtTittle;
+        private System.Windows.Forms.TextBox txtMessText;
+        private System.Windows.Forms.ListView listView1;
     }
 }

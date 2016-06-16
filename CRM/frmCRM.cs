@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using APP.CRM.Mail;
 
 namespace CRM.GUI
 {
@@ -17,7 +18,7 @@ namespace CRM.GUI
         private void button2_Click(object sender, EventArgs e)
         {
             Mail.frmInbox frmInbox = new Mail.frmInbox();
-            frmInbox.Show();
+            frmInbox.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -60,6 +61,7 @@ namespace CRM.GUI
                     this.Close();
                     return;
                 }
+                
 
                 thread = new Thread(new ThreadStart(getEmail));
                 thread.Start();
@@ -72,13 +74,20 @@ namespace CRM.GUI
 
         private void getEmail()
         {
-            while(1==1)
-            {
-                //int time = 100;
-                Thread.Sleep(2000);
-                MessageBox.Show("aa");
-            }
+            cSession.inbox = new cMailBox("imap.gmail.com",
+                          993,
+                          true,
+                          cSession.login, cSession.passwordUser);
 
+            while (1==1)
+            {
+                Thread.Sleep(2000);
+                int newMailCount =cMail.getNewMail();
+
+                if (newMailCount > 0)
+                    notifyCRM.ShowBalloonTip(1000, "Masz nowe wiadomości", "Masz " + newMailCount + "nowych wiadomości", ToolTipIcon.Info);
+                    //MessageBox.Show("Otrzymana nowe maila: " + newMailCount.ToString());
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -96,6 +105,30 @@ namespace CRM.GUI
 
             cUser user = new cUser();
             user.getListUsers();
+        }
+
+        private void frmCRM_Move(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+            }
+        }
+
+        private void cmOpen_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void cmInbox_Click(object sender, EventArgs e)
+        {
+            Mail.frmInbox frmInbox = new Mail.frmInbox();
+            frmInbox.ShowDialog();
+        }
+
+        private void cmExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

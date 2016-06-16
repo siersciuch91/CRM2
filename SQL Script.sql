@@ -22,7 +22,7 @@ create table mailBox
 	mail varchar(50) not null, 
 	tittle varchar(255) not null,
 	messageText varchar(max) not null,
-	messageDate date not null,
+	messageDate datetime not null,
 	userId int foreign key REFERENCES users(id)
 );
 
@@ -31,7 +31,7 @@ IF OBJECT_ID('dbo.attachment', 'U') IS NOT NULL
 CREATE TABLE attachment
 (
 	id int IDENTITY(1,1) NOT NULL primary key,
-	messageId int NOT NULL,
-	data image NOT NULL,
+	messageId int NOT NULL foreign key REFERENCES mailBox(id),
+	data image NOT NULL ,
 	name varchar(255) NOT NULL
 );

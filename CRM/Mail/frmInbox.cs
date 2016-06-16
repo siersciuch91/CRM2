@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ActiveUp.Net.Mail;
+using APP.CRM;
 
 namespace CRM.GUI.Mail
 {
@@ -16,21 +17,35 @@ namespace CRM.GUI.Mail
 
         private void Inbox_Load(object sender, EventArgs e)
         {
-            cMailBox inbox = new cMailBox("imap.gmail.com",
-                            993,
-                            true,
-                            "adrian.kasia.pk2106@gmail.com", "Politechnika*2016");
-            //List<cMail> mailList = inbox.getMail();
+            List<cMail> mailList = cMail.getInboxMailDB();
 
-            mailList = inbox.GetUnreadMails("inbox");
+
+            
+            //mailList = inbox.GetUnreadMails("inbox");
             lvInbox.View = View.Details;
             lvInbox.Columns.Add("Od", 100, HorizontalAlignment.Left);
             lvInbox.Columns.Add("Tytuł", 300, HorizontalAlignment.Left);
             lvInbox.Columns.Add("Data", 200, HorizontalAlignment.Right);
             lvInbox.FullRowSelect = true;
 
-            
+            foreach(cMail m in mailList)
+            {
+                ListViewItem lvItem = new ListViewItem(m.address);
+                lvItem.SubItems.Add(m.tittle);
+                DateTime receiveDate = m.date;
+                if (receiveDate.Date == DateTime.Now.Date)
+                    lvItem.SubItems.Add((receiveDate.TimeOfDay.Hours + 2) + ":" + receiveDate.TimeOfDay.Minutes);
+                else if (receiveDate.Date.Year == DateTime.Now.Date.Year)
+                    lvItem.SubItems.Add(receiveDate.Date.ToString("dd") + "-" + receiveDate.Date.ToString("MM"));
+                else
+                    lvItem.SubItems.Add(receiveDate.ToString("dd") + "-" + receiveDate.Date.ToString("MM") + "-" + receiveDate.Date.ToString("yyyy"));
 
+                lvItem.Tag = m;
+
+                lvInbox.Items.Add(lvItem);
+            }
+
+            /*
             foreach (ActiveUp.Net.Mail.Message mail in mailList)
             {
                 ListViewItem lvItem = new ListViewItem(mail.From.ToString());
@@ -45,16 +60,18 @@ namespace CRM.GUI.Mail
 
                 lvInbox.Items.Add(lvItem);
 
-            }
+            }*/
 
         }
 
         private void lvInbox_DoubleClick(object sender, EventArgs e)
         {
-            ListViewItem lvItem = lvInbox.SelectedItems[0];
+            ListViewItem lvItem  = sender as ListViewItem;
+            
             //IEnumerator<ActiveUp.Net.Mail.Message> mailEnumerator = mailList.GetEnumerator();
             frmMessage frmTemp = new frmMessage();
-
+            frmTemp.mail = (cMail)lvInbox.SelectedItems[0].Tag;
+            frmTemp.ShowDialog();
                 // mailEnumerator.MoveNext();
         }
     }
