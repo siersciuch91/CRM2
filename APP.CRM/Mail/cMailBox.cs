@@ -38,10 +38,5 @@ namespace APP.CRM.Mail
             MessageCollection messages = mails.SearchParse(searchPhrase);
             return messages;
         }
-
-        public void getAndSaveMail()
-        {
-
-        }
     }
 }

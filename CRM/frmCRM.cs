@@ -3,10 +3,11 @@ using System;
 using System.Windows.Forms;
 using System.Threading;
 using APP.CRM.Mail;
+using System.IO;
 
 namespace CRM.GUI
 {
-    public partial class frmCRM : Form
+    public partial class frmCRM : RibbonForm
     {
         Thread thread;
         public frmCRM()
@@ -18,28 +19,14 @@ namespace CRM.GUI
         private void button2_Click(object sender, EventArgs e)
         {
             Mail.frmInbox frmInbox = new Mail.frmInbox();
-            frmInbox.ShowDialog();
+            frmInbox.Show();
+            frmInbox.MdiParent = this;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Mail.frmSendMail frmSendMail = new Mail.frmSendMail();
             frmSendMail.Show();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //, "Politechnika*2016"
-            frmLogin frmTemp = new frmLogin();
-            frmTemp.ShowDialog();
-            if (frmTemp.loginState)
-            {
-
-               // login = "adrian.kasia.pk2106@gmail.com";
-                //pass = "Politechnika*2016";
-            }
-            frmTemp.Close();
-            //conn.Open(connString, "", "", -1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,11 +48,11 @@ namespace CRM.GUI
                     this.Close();
                     return;
                 }
-                
+
+                cSession.tempPath = Path.GetTempPath() + "\\CRM_KA\\" + cSession.userId;
 
                 thread = new Thread(new ThreadStart(getEmail));
                 thread.Start();
-
             }
             catch (Exception ex)
             {
@@ -95,6 +82,15 @@ namespace CRM.GUI
             //thread.R
             if (thread != null && thread.ThreadState == ThreadState.Running)
                 thread.Abort();
+
+
+            if (Directory.Exists(cSession.tempPath))
+            {
+                DirectoryInfo directory = new DirectoryInfo(cSession.tempPath);
+                foreach (System.IO.FileInfo file in directory.GetFiles()) file.Delete();
+                foreach (System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+                directory.Delete(true);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -129,6 +125,46 @@ namespace CRM.GUI
         private void cmExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnInbox_Click(object sender, EventArgs e)
+        {
+            Mail.frmInbox frmInbox = new Mail.frmInbox();
+            frmInbox.MdiParent = this;
+            frmInbox.Show();
+            
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            Mail.frmSendMail frmSendMail = new Mail.frmSendMail();
+            frmSendMail.MdiParent = this;
+            frmSendMail.Show();
+        }
+
+        private void btnFirm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNowy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnModyfikuj_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSendBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -80,6 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(802, 387);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
@@ -88,6 +89,7 @@
             this.Controls.Add(this.txtAddress);
             this.Name = "frmSendMail";
             this.Text = "Wyślij wiadomość";
+            this.Load += new System.EventHandler(this.frmSendMail_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

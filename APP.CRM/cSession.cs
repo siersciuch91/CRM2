@@ -8,5 +8,6 @@ namespace APP.CRM
         public static string passwordUser;
         public static int userId;
         public static cMailBox inbox;
+        public static string tempPath;
     }
 }

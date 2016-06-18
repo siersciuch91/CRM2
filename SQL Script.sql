@@ -1,4 +1,54 @@
 use CRM;
+IF OBJECT_ID('dbo.city', 'U') IS NOT NULL 
+  DROP TABLE dbo.city; 
+create table city
+(
+	id int IDENTITY(1,1) NOT NULL primary key,
+	name varchar(255),
+	postCode varchar(6)
+)
+IF OBJECT_ID('dbo.prefix', 'U') IS NOT NULL 
+  DROP TABLE dbo.prefix; 
+create table prefix
+(
+	id int IDENTITY(1,1) NOT NULL primary key,
+	prefix varchar(20)
+)
+IF OBJECT_ID('dbo.street', 'U') IS NOT NULL 
+  DROP TABLE dbo.street; 
+create table street
+(
+	id int IDENTITY(1,1) NOT NULL primary key,
+	id_city int foreign key REFERENCES city(id),
+	id_prefix int foreign key REFERENCES prefix(id),
+	name varchar(255)
+)
+
+IF OBJECT_ID('dbo.company', 'U') IS NOT NULL 
+  DROP TABLE dbo.company; 
+create table company
+(
+	id int IDENTITY(1,1) NOT NULL primary key,
+	comapnyName varchar(255) not null,
+	id_street int foreign key REFERENCES street(id) not null,
+	houseNo varchar(20) not null, 
+	nip varchar (15),
+	tel varchar (15),
+	mail varchar (100)
+)
+
+IF OBJECT_ID('dbo.client', 'U') IS NOT NULL 
+  DROP TABLE dbo.client; 
+create table client
+(
+	id int IDENTITY(1,1) NOT NULL primary key,
+	id_company int foreign key REFERENCES company(id) not null,
+	mail varchar (100) not null,
+	tel varchar (15),
+	name varchar (50),
+	secondName varchar (50)
+)
+
 IF OBJECT_ID('dbo.users', 'U') IS NOT NULL 
   DROP TABLE dbo.users; 
 create table users
@@ -17,13 +67,15 @@ IF OBJECT_ID('dbo.mailBox', 'U') IS NOT NULL
 create table mailBox
 (
 	id int identity(1,1) primary key,
-	type bit, --0 odebrany, 1 wyslany
+	type int, --0 odebrany, 1 wyslany
 	name varchar(50) not null, 
 	mail varchar(50) not null, 
 	tittle varchar(255) not null,
 	messageText varchar(max) not null,
 	messageDate datetime not null,
-	userId int foreign key REFERENCES users(id)
+	userId int foreign key REFERENCES users(id),
+	clientId int foreign key REFERENCES client(id),
+	readMail bit 
 );
 
 IF OBJECT_ID('dbo.attachment', 'U') IS NOT NULL 

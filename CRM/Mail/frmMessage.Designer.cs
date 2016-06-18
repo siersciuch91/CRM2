@@ -63,6 +63,8 @@
             this.listView1.Size = new System.Drawing.Size(689, 97);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // frmMessage
             // 

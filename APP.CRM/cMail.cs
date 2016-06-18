@@ -17,6 +17,7 @@ namespace APP.CRM
         public string text;
         public DateTime date;
         public int userId;
+        public bool read;
 
         public cMail(int vtype, string vAddress, string vName, string vTittle, DateTime vDate, int vUserId)
         {
@@ -26,6 +27,7 @@ namespace APP.CRM
             tittle = vTittle;
             date = vDate;
             userId = vUserId;
+            read = false;
         }
 
         public cMail()
@@ -37,7 +39,7 @@ namespace APP.CRM
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate, userid from mailbox";
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, userid, readMail from mailbox";
                 object nilTempConv = Type.Missing;
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
                 rdMail.AddNew(nilTempConv, nilTempConv);
@@ -49,7 +51,7 @@ namespace APP.CRM
                 rdMail.Fields["MESSAGEDATE"].Value = date;
                 rdMail.Fields["MESSAGETEXT"].Value = text;
                 rdMail.Fields["USERID"].Value = cSession.userId;
-
+                rdMail.Fields["READMAIL"].Value = read;
                 rdMail.Update();
 
                 id = rdMail.Fields["ID"].Value;
@@ -73,7 +75,7 @@ namespace APP.CRM
             {
                 countMail++;
 
-                cMail tempMail = new cMail();//(0, mail.From.Email,mail.From.Name, mail.Subject, mail.ReceivedDate, 1);
+                cMail tempMail = new cMail();
                 tempMail.type = (int)mailType.inbox;
                 tempMail.address = mail.From.Email;
                 tempMail.name = mail.From.Name;
@@ -81,11 +83,13 @@ namespace APP.CRM
                 tempMail.userId = cSession.userId;
                 tempMail.date = mail.ReceivedDate;
                 tempMail.text = mail.BodyText.Text;
+                tempMail.read = false;
                 tempMail.insertMail();
 
                 foreach (MimePart a in mail.Attachments)
                 {
                     cAttachments att = new cAttachments();
+                    
                     att.messageId = tempMail.id;
                     att.data = a.BinaryContent;
                     att.name = a.ContentName;
@@ -103,7 +107,7 @@ namespace APP.CRM
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate from mailbox where type = 0 and userid =" + cSession.userId;
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail from mailbox where type = 0 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
 
                 while(!rdMail.EOF)
@@ -117,6 +121,7 @@ namespace APP.CRM
                     tempMail.tittle = rdMail.Fields["TITTLE"].Value;
                     tempMail.date = rdMail.Fields["MESSAGEDATE"].Value;
                     tempMail.text = rdMail.Fields["MESSAGETEXT"].Value;
+                    tempMail.read = rdMail.Fields["READMAIL"].Value;
 
                     listMail.Add(tempMail);
                     rdMail.MoveNext();
@@ -129,6 +134,39 @@ namespace APP.CRM
             }
 
             return listMail;
+        }
+
+        public bool markAsRead()
+        {
+            try
+            {
+                object tempObj;
+                if (read == false)
+                {
+                    read = true;
+                    cConnection.conn.Execute("update mailbox set readMail = 1 where id = " + id, out tempObj);
+                }
+
+
+                return true; 
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool markAsUnRead()
+        {
+            try
+            {
+                object tempObj;
+                cConnection.conn.Execute("update mailbox set readMail = 0 where id = " + id, out tempObj);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

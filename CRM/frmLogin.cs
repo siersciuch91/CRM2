@@ -33,5 +33,17 @@ namespace CRM.GUI
                 if (MessageBox.Show("Błędne dane logowania, spróbuj ponownie.", "CRM", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
                 this.Close();
         }
+
+        private void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnLogin_Click(null, null);
+        }
+
+        private void txtLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnLogin_Click(null, null);
+        }
     }
 }

@@ -28,28 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.cRMDataSet = new global::CRM.GUI.CRMDataSet();
-            this.uSERSBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.uSERSTableAdapter = new global::CRM.GUI.CRMDataSetTableAdapters.USERSTableAdapter();
             this.lvInbox = new System.Windows.Forms.ListView();
-            ((System.ComponentModel.ISupportInitialize)(this.cRMDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uSERSBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // cRMDataSet
-            // 
-            this.cRMDataSet.DataSetName = "CRMDataSet";
-            this.cRMDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // uSERSBindingSource
-            // 
-            this.uSERSBindingSource.DataMember = "USERS";
-            this.uSERSBindingSource.DataSource = this.cRMDataSet;
-            // 
-            // uSERSTableAdapter
-            // 
-            this.uSERSTableAdapter.ClearBeforeFill = true;
             // 
             // lvInbox
             // 
@@ -67,19 +47,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 316);
             this.Controls.Add(this.lvInbox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmInbox";
+            this.ShowIcon = false;
             this.Text = "Skrzynka odbiorcza";
             this.Load += new System.EventHandler(this.Inbox_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.cRMDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uSERSBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private CRMDataSet cRMDataSet;
-        private System.Windows.Forms.BindingSource uSERSBindingSource;
-        private CRMDataSetTableAdapters.USERSTableAdapter uSERSTableAdapter;
         private System.Windows.Forms.ListView lvInbox;
     }
 }

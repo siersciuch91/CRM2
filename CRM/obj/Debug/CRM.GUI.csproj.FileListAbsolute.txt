@@ -25,3 +25,4 @@ C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\bin\Debug\Active
 C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.exe
 C:\Users\siers\documents\visual studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.pdb
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.frmCRM.resources
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\bin\Debug\System.Windows.Forms.Ribbon35.dll

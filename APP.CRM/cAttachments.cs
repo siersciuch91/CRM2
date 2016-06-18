@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,13 +8,18 @@ using System.Windows.Forms;
 
 namespace APP.CRM
 {
-    class cAttachments
+    public class cAttachments
     {
         public int id;
         public int messageId;
         public byte[] data;
         public string name;
 
+        
+        public ListView lvItem;
+        /// <summary>
+        /// Zapsianie załączników do bazy
+        /// </summary>
         internal void insertAttachment()
         {
             try
@@ -37,26 +43,56 @@ namespace APP.CRM
             }
         }
 
-        internal List<cAttachments> getListWithoutBin(int messageId)
+        /// <summary>
+        /// Pobanie informacji o załącznikach bez binary
+        /// </summary>
+        /// <param name="messageId">id wiadomosci dla których maja byc pobrane</param>
+        /// <param name="lvAtt">ListView do którego wczytujemy załączniki</param>
+        public static void  getListWithoutBin(int messageId, ListView lvAtt)
         {
-            List<cAttachments> listAtt = new List<cAttachments>();
             ADODB.Recordset rdAtt = new ADODB.Recordset();
             string sql = "select id,  name from attachment where messageid = " +messageId;
             rdAtt.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, 0);
 
-            while(!rdAtt.EOF)
+            string tempPath = System.IO.Path.GetTempPath();
+            while (!rdAtt.EOF)
             {
                 cAttachments attTemp = new cAttachments();
                 attTemp.id = rdAtt.Fields["ID"].Value;
                 attTemp.messageId = messageId;
                 attTemp.name = rdAtt.Fields["NAME"].Value;
-                listAtt.Add(attTemp);
+
+                ListViewItem lviTemp = new ListViewItem(attTemp.name);
+
+                lviTemp.Tag = attTemp;
+
+                lvAtt.Items.Add(lviTemp);
                 rdAtt.MoveNext();
             }
             rdAtt.Close();
+        }
+        /// <summary>
+        /// Pobranie binarek do załącznika
+        /// </summary>
+        /// <returns></returns>
+        public bool getBinnary()
+        {
+            try
+            {
+                ADODB.Recordset rdAtt = new ADODB.Recordset();
+                string sql = "select data from attachment where id = " + this.id;
+                rdAtt.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, 0);
 
+                this.data = rdAtt.Fields["DATA"].Value;
 
-            return listAtt;
+                rdAtt.Close();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

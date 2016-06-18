@@ -25,5 +25,12 @@ namespace CRM.GUI.Mail
             sendMail.setMailTittle(txtTittle.Text);
             sendMail.sendMail();
         }
+
+        private void frmSendMail_Load(object sender, EventArgs e)
+        {
+            this.ControlBox = false;
+            this.WindowState = FormWindowState.Maximized;
+            this.BringToFront();
+        }
     }
 }
