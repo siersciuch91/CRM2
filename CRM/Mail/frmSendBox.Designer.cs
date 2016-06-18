@@ -1,6 +1,6 @@
 ﻿namespace CRM.GUI.Mail
 {
-    partial class frmInbox
+    partial class frmSendBox
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@
             this.lvInbox.UseCompatibleStateImageBehavior = false;
             this.lvInbox.DoubleClick += new System.EventHandler(this.lvInbox_DoubleClick);
             // 
-            // frmInbox
+            // frmSendBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -51,9 +51,9 @@
             this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmInbox";
+            this.Name = "frmSendBox";
             this.ShowIcon = false;
-            this.Text = "Skrzynka odbiorcza";
+            this.Text = "Skrzynka nadawcza";
             this.Load += new System.EventHandler(this.Inbox_Load);
             this.ResumeLayout(false);
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace APP.CRM
 {
+    //osobna klasa tworzaca i przechowujaca polaczenie do bnzy danych
     public class cConnection
     {
         public static ADODB.Connection conn = new ADODB.Connection();

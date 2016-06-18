@@ -12,34 +12,49 @@ namespace APP.CRM
         public int id;
         public int type;
         public string address;
-        public string name;
+        public string name = "";
         public string tittle;
         public string text;
         public DateTime date;
         public int userId;
         public bool read;
-
-        public cMail(int vtype, string vAddress, string vName, string vTittle, DateTime vDate, int vUserId)
-        {
-            type = vtype;
-            address = vAddress;
-            name = vName;
-            tittle = vTittle;
-            date = vDate;
-            userId = vUserId;
-            read = false;
-        }
+        public int clientId = 0;
 
         public cMail()
         {
         }
 
-        void insertMail()
+        public bool deleteMail()
+        {
+            try
+            {
+                object tempObj;
+                cConnection.conn.Execute("Delete from mailbox where id = " + id, out tempObj);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void insertMail()
         {
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate, userid, readMail from mailbox";
+                string sql = "select id, ISNULL(NAME, '') + ' ' + ISNULL(SECONDNAME, '') from client where mail = '" + address + "'";
+
+                rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
+                if (!rdMail.EOF)
+                {
+                    clientId = rdMail.Fields[0].Value;
+                    name = rdMail.Fields[1].Value;
+                }
+                rdMail.Close();
+
+                sql = "select id, type, name, mail, tittle, messageText, messageDate, userid, readMail from mailbox";
                 object nilTempConv = Type.Missing;
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
                 rdMail.AddNew(nilTempConv, nilTempConv);
@@ -48,14 +63,20 @@ namespace APP.CRM
                 rdMail.Fields["NAME"].Value = name;
                 rdMail.Fields["MAIL"].Value = address;
                 rdMail.Fields["TITTLE"].Value = tittle;
-                rdMail.Fields["MESSAGEDATE"].Value = date;
+
+                if (type == 0)
+                    rdMail.Fields["MESSAGEDATE"].Value = date;
+
                 rdMail.Fields["MESSAGETEXT"].Value = text;
                 rdMail.Fields["USERID"].Value = cSession.userId;
                 rdMail.Fields["READMAIL"].Value = read;
+
+                if (clientId > 0)
+                    rdMail.Fields["CLIENTID"].Value = clientId;
+
                 rdMail.Update();
 
                 id = rdMail.Fields["ID"].Value;
-
                 rdMail.Close();
             }
             catch (Exception ex)
@@ -64,12 +85,18 @@ namespace APP.CRM
             }
         }
 
-        public static int getNewMail()
+        public static int getNewMail(ref List<cMail> cMailList)
         {
+            if (cSession.inbox == null)
+            {
+                MessageBox.Show("Nie nawiązano jeszcze połączenia, proszę spróbować za chwilę.", "Brak połączenia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return 0;
+            }
+
             int countMail = 0;
             IEnumerable<ActiveUp.Net.Mail.Message> mailList;
             mailList = cSession.inbox.GetUnreadMails("inbox");
-
+            cMailList = new List<cMail>();
 
             foreach (ActiveUp.Net.Mail.Message mail in mailList)
             {
@@ -95,6 +122,7 @@ namespace APP.CRM
                     att.name = a.ContentName;
                     att.insertAttachment();
                 }
+                cMailList.Add(tempMail);
             }
 
             return countMail;
@@ -107,7 +135,7 @@ namespace APP.CRM
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail from mailbox where type = 0 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, clientId from mailbox where type = 0 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
 
                 while(!rdMail.EOF)
@@ -122,6 +150,50 @@ namespace APP.CRM
                     tempMail.date = rdMail.Fields["MESSAGEDATE"].Value;
                     tempMail.text = rdMail.Fields["MESSAGETEXT"].Value;
                     tempMail.read = rdMail.Fields["READMAIL"].Value;
+                    tempMail.userId = cSession.userId;
+
+                    if (rdMail.Fields["CLIENTID"].Value != DBNull.Value)
+                        tempMail.clientId = rdMail.Fields["CLIENTID"].Value;
+
+                    listMail.Add(tempMail);
+                    rdMail.MoveNext();
+                }
+                rdMail.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return listMail;
+        }
+
+        public static List<cMail> getSendboxMailDB()
+        {
+            List<cMail> listMail = new List<cMail>();
+
+            try
+            {
+                ADODB.Recordset rdMail = new ADODB.Recordset();
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, clientId from mailbox where type = 1 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
+                rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
+
+                while (!rdMail.EOF)
+                {
+                    cMail tempMail = new cMail();
+
+                    tempMail.id = rdMail.Fields["ID"].Value;
+                    tempMail.type = rdMail.Fields["TYPE"].Value;
+                    tempMail.name = rdMail.Fields["NAME"].Value;
+                    tempMail.address = rdMail.Fields["MAIL"].Value;
+                    tempMail.tittle = rdMail.Fields["TITTLE"].Value;
+                    tempMail.date = rdMail.Fields["MESSAGEDATE"].Value;
+                    tempMail.text = rdMail.Fields["MESSAGETEXT"].Value;
+                    tempMail.read = rdMail.Fields["READMAIL"].Value;
+                    tempMail.userId = cSession.userId;
+
+                    if (rdMail.Fields["CLIENTID"].Value != DBNull.Value)
+                        tempMail.clientId = rdMail.Fields["CLIENTID"].Value;
 
                     listMail.Add(tempMail);
                     rdMail.MoveNext();
@@ -146,8 +218,6 @@ namespace APP.CRM
                     read = true;
                     cConnection.conn.Execute("update mailbox set readMail = 1 where id = " + id, out tempObj);
                 }
-
-
                 return true; 
             }
             catch

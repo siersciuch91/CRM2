@@ -7,13 +7,13 @@ using APP.CRM;
 
 namespace CRM.GUI.Mail
 {
-    public partial class frmInbox : Form
+    public partial class frmSendBox : Form
     {
         System.Drawing.Font normalFont;
         System.Drawing.Font boldFont;
 
         //IEnumerable<ActiveUp.Net.Mail.Message> mailList;
-        public frmInbox()
+        public frmSendBox()
         {
             InitializeComponent();
         }
@@ -23,14 +23,14 @@ namespace CRM.GUI.Mail
             this.ControlBox = false;
             this.WindowState = FormWindowState.Maximized;
             this.BringToFront();
-            List<cMail> mailList = cMail.getInboxMailDB();
+            List<cMail> mailList = cMail.getSendboxMailDB();
 
             normalFont = lvInbox.Font;
             boldFont = new System.Drawing.Font(lvInbox.Font, System.Drawing.FontStyle.Bold);
 
             //mailList = inbox.GetUnreadMails("inbox");
             lvInbox.View = View.Details;
-            lvInbox.Columns.Add("Od", 300, HorizontalAlignment.Left);
+            lvInbox.Columns.Add("Do", 300, HorizontalAlignment.Left);
             lvInbox.Columns.Add("Tytuł", 700, HorizontalAlignment.Left);
             lvInbox.Columns.Add("Data", 200, HorizontalAlignment.Right);
             lvInbox.FullRowSelect = true;
@@ -43,7 +43,7 @@ namespace CRM.GUI.Mail
  
                 ListViewItem lvItem = new ListViewItem(add);
                 lvItem.SubItems.Add(m.tittle);
-                DateTime receiveDate = m.date.ToLocalTime();
+                DateTime receiveDate = m.date;
                 if (receiveDate.Date == DateTime.Now.Date)
                     lvItem.SubItems.Add((receiveDate.TimeOfDay.Hours) + ":" + receiveDate.TimeOfDay.Minutes.ToString("00"));
                 else if (receiveDate.Date.Year == DateTime.Now.Date.Year)
@@ -60,18 +60,15 @@ namespace CRM.GUI.Mail
             }
         }
 
-        public void insertNewMailList(List<cMail> listNewMail)
+        public void insertNewMail(cMail newMail)
         {
-            listNewMail.Reverse();
-            foreach (cMail m in listNewMail)
-            {
-                string add = m.address;
-                if (m.name.Trim().Length > 0)
-                    add = m.name + "(" + add + ")";
+                string add = newMail.address;
+                if (newMail.name.Trim().Length > 0)
+                    add = newMail.name + "(" + add + ")";
 
                 ListViewItem lvItem = new ListViewItem(add);
-                lvItem.SubItems.Add(m.tittle);
-                DateTime receiveDate = m.date.ToLocalTime();
+                lvItem.SubItems.Add(newMail.tittle);
+                DateTime receiveDate = newMail.date;
                 if (receiveDate.Date == DateTime.Now.Date)
                     lvItem.SubItems.Add((receiveDate.TimeOfDay.Hours) + ":" + receiveDate.TimeOfDay.Minutes.ToString("00"));
                 else if (receiveDate.Date.Year == DateTime.Now.Date.Year)
@@ -79,20 +76,14 @@ namespace CRM.GUI.Mail
                 else
                     lvItem.SubItems.Add(receiveDate.ToString("dd") + "-" + receiveDate.Date.ToString("MM") + "-" + receiveDate.Date.ToString("yyyy"));
 
-                if (!m.read)
-                    lvItem.Font = boldFont;
-
-                lvItem.Tag = m;
+                lvItem.Tag = newMail;
                 //do odwolan z innego watku
                 this.Invoke((MethodInvoker)delegate{lvInbox.Items.Insert(0, lvItem);});
-            }
         }
         private void lvInbox_DoubleClick(object sender, EventArgs e)
         {
             ListViewItem lvItem  = sender as ListViewItem;
             cMail tempMail = lvInbox.SelectedItems[0].Tag as cMail;
-            tempMail.markAsRead();
-            lvInbox.SelectedItems[0].Font = normalFont;
             frmMessage frmTemp = new frmMessage();
             frmTemp.mail = tempMail;
             frmTemp.ShowDialog();

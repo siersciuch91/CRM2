@@ -72,7 +72,7 @@ create table mailBox
 	mail varchar(50) not null, 
 	tittle varchar(255) not null,
 	messageText varchar(max) not null,
-	messageDate datetime not null,
+	messageDate datetime not null default GETDATE(),
 	userId int foreign key REFERENCES users(id),
 	clientId int foreign key REFERENCES client(id),
 	readMail bit 

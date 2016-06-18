@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ewidencja\frmCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ewidencja\frmCompany.Designer.cs">
+      <DependentUpon>frmCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCRM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,12 @@
     </Compile>
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mail\frmSendBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mail\frmSendBox.Designer.cs">
+      <DependentUpon>frmSendBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Mail\frmInbox.cs">
       <SubType>Form</SubType>
@@ -88,11 +100,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ewidencja\frmCompany.resx">
+      <DependentUpon>frmCompany.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCRM.resx">
       <DependentUpon>frmCRM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mail\frmSendBox.resx">
+      <DependentUpon>frmSendBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mail\frmInbox.resx">
       <DependentUpon>frmInbox.cs</DependentUpon>

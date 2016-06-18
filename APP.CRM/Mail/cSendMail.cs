@@ -31,12 +31,12 @@ namespace APP.CRM.Mail
             this.attachments = value;
         }
 
-        public bool sendMail()
+        public void sendMail()
         {
             MailMessage mail = new MailMessage();
             
 
-            mail.From = new System.Net.Mail.MailAddress("adrian.kasia.pk2106@gmail.com");
+            mail.From = new System.Net.Mail.MailAddress(cSession.login);
 
             // The important part -- configuring the SMTP client
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
@@ -44,7 +44,7 @@ namespace APP.CRM.Mail
             smtp.EnableSsl = true;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network; // [2] Added this
             smtp.UseDefaultCredentials = false; // [3] Changed this
-            smtp.Credentials = new NetworkCredential("adrian.kasia.pk2106@gmail.com", "Politechnika*2016");  // [4] Added this. Note, first parameter is NOT string.
+            smtp.Credentials = new NetworkCredential(cSession.login, cSession.passwordUser);  // [4] Added this. Note, first parameter is NOT string.
             smtp.Host = "smtp.gmail.com";
 
             //recipient address
@@ -57,7 +57,7 @@ namespace APP.CRM.Mail
             mail.Body = mailText;
             smtp.Send(mail);
 
-            return true;
+            
         }
     }
 }

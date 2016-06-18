@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCRM));
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.notifyCRM = new System.Windows.Forms.NotifyIcon(this.components);
             this.conMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,41 +52,11 @@
             this.btnNowy = new System.Windows.Forms.RibbonButton();
             this.btnModyfikuj = new System.Windows.Forms.RibbonButton();
             this.btnUsun = new System.Windows.Forms.RibbonButton();
+            this.rbnFunMail = new System.Windows.Forms.RibbonPanel();
+            this.btnRefresh = new System.Windows.Forms.RibbonButton();
+            this.btnDelete = new System.Windows.Forms.RibbonButton();
             this.conMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(192, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(192, 261);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(192, 290);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // notifyCRM
             // 
@@ -97,6 +64,7 @@
             this.notifyCRM.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyCRM.Icon")));
             this.notifyCRM.Text = "CRM KA";
             this.notifyCRM.Visible = true;
+            this.notifyCRM.DoubleClick += new System.EventHandler(this.notifyCRM_DoubleClick);
             // 
             // conMenu
             // 
@@ -174,6 +142,7 @@
             // ribbon
             // 
             this.ribbon.Panels.Add(this.ribbonPanel1);
+            this.ribbon.Panels.Add(this.rbnFunMail);
             this.ribbon.Text = "Poczta";
             this.ribbon.ToolTipImage = ((System.Drawing.Image)(resources.GetObject("ribbon.ToolTipImage")));
             // 
@@ -265,15 +234,32 @@
             this.btnUsun.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnUsun.SmallImage")));
             this.btnUsun.Text = "Usuń";
             // 
+            // rbnFunMail
+            // 
+            this.rbnFunMail.Items.Add(this.btnRefresh);
+            this.rbnFunMail.Items.Add(this.btnDelete);
+            this.rbnFunMail.Text = "Funkcje poczta";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnRefresh.SmallImage")));
+            this.btnRefresh.Text = "Odśwież";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDelete.SmallImage")));
+            this.btnDelete.Text = "Usuń wiadomość";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // frmCRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1054, 364);
             this.Controls.Add(this.ribbon1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "frmCRM";
@@ -281,6 +267,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MdiChildActivate += new System.EventHandler(this.frmCRM_MdiChildActivate);
             this.Move += new System.EventHandler(this.frmCRM_Move);
             this.conMenu.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -288,9 +275,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.NotifyIcon notifyCRM;
         private System.Windows.Forms.ContextMenuStrip conMenu;
         private System.Windows.Forms.ToolStripMenuItem cmOpen;
@@ -313,6 +297,9 @@
         private System.Windows.Forms.RibbonButton btnNowy;
         private System.Windows.Forms.RibbonButton btnModyfikuj;
         private System.Windows.Forms.RibbonButton btnUsun;
+        private System.Windows.Forms.RibbonPanel rbnFunMail;
+        private System.Windows.Forms.RibbonButton btnRefresh;
+        private System.Windows.Forms.RibbonButton btnDelete;
     }
 }
 

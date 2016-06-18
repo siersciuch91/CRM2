@@ -21,7 +21,6 @@ C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\bin\Debug\Ac
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\bin\Debug\ActiveUp.Net.Pop3.xml
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\bin\Debug\ActiveUp.Net.Smtp.xml
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\bin\Debug\ActiveUp.Net.WhoIs.xml
-C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\CRM.APP.csprojResolveAssemblyReference.cache
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\Interop.ADODB.dll
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\CRM.APP.csproj.ResolveComReference.cache
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\APP.CRM.Properties.Resources.resources
