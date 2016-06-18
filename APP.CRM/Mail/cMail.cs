@@ -54,7 +54,7 @@ namespace APP.CRM
                 }
                 rdMail.Close();
 
-                sql = "select id, type, name, mail, tittle, messageText, messageDate, userid, readMail from mailbox";
+                sql = "select id, type, name, mail, tittle, messageText, messageDate, userid, readMail, clientid from mailbox";
                 object nilTempConv = Type.Missing;
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
                 rdMail.AddNew(nilTempConv, nilTempConv);
@@ -63,10 +63,7 @@ namespace APP.CRM
                 rdMail.Fields["NAME"].Value = name;
                 rdMail.Fields["MAIL"].Value = address;
                 rdMail.Fields["TITTLE"].Value = tittle;
-
-                if (type == 0)
-                    rdMail.Fields["MESSAGEDATE"].Value = date;
-
+                rdMail.Fields["MESSAGEDATE"].Value = date;
                 rdMail.Fields["MESSAGETEXT"].Value = text;
                 rdMail.Fields["USERID"].Value = cSession.userId;
                 rdMail.Fields["READMAIL"].Value = read;
@@ -135,7 +132,7 @@ namespace APP.CRM
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, clientId from mailbox where type = 0 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, ISNULL(clientId,0) clientId from mailbox where type = 0 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
 
                 while(!rdMail.EOF)
@@ -152,7 +149,7 @@ namespace APP.CRM
                     tempMail.read = rdMail.Fields["READMAIL"].Value;
                     tempMail.userId = cSession.userId;
 
-                    if (rdMail.Fields["CLIENTID"].Value != DBNull.Value)
+                    if (rdMail.Fields["CLIENTID"].Value != 0)
                         tempMail.clientId = rdMail.Fields["CLIENTID"].Value;
 
                     listMail.Add(tempMail);
@@ -175,7 +172,7 @@ namespace APP.CRM
             try
             {
                 ADODB.Recordset rdMail = new ADODB.Recordset();
-                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, clientId from mailbox where type = 1 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
+                string sql = "select id, type, name, mail, tittle, messageText, messageDate, readMail, ISNULL(clientId,0) as clientId from mailbox where type = 1 and userid =" + cSession.userId + "order by MESSAGEDATE desc";
                 rdMail.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic, (Int32)ADODB.CommandTypeEnum.adCmdText);
 
                 while (!rdMail.EOF)
@@ -192,7 +189,7 @@ namespace APP.CRM
                     tempMail.read = rdMail.Fields["READMAIL"].Value;
                     tempMail.userId = cSession.userId;
 
-                    if (rdMail.Fields["CLIENTID"].Value != DBNull.Value)
+                    if (rdMail.Fields["CLIENTID"].Value != 0)
                         tempMail.clientId = rdMail.Fields["CLIENTID"].Value;
 
                     listMail.Add(tempMail);

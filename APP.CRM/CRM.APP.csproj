@@ -94,6 +94,7 @@
     <Compile Include="cAttachments.cs" />
     <Compile Include="cConnection.cs" />
     <Compile Include="cGlobalVariable.cs" />
+    <Compile Include="Ewidencja\cClient.cs" />
     <Compile Include="Ewidencja\cCompany.cs" />
     <Compile Include="Mail\cMail.cs" />
     <Compile Include="cSession.cs" />

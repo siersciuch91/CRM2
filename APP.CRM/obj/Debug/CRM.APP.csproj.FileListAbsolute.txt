@@ -27,3 +27,4 @@ C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\AP
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\CRM.APP.csproj.GenerateResource.Cache
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\APP.CRM.exe
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\APP.CRM.pdb
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\APP.CRM\obj\Debug\CRM.APP.csprojResolveAssemblyReference.cache

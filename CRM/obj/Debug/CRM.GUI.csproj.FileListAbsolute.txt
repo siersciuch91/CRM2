@@ -28,3 +28,4 @@ C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GU
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\bin\Debug\System.Windows.Forms.Ribbon35.dll
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.Mail.frmSendBox.resources
 C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.Ewidencja.frmCompany.resources
+C:\Users\siers\Documents\Visual Studio 2015\Projects\TO\CRM\CRM\obj\Debug\CRM.GUI.Ewidencja.frmClient.resources

@@ -43,7 +43,7 @@ namespace CRM.GUI.Mail
  
                 ListViewItem lvItem = new ListViewItem(add);
                 lvItem.SubItems.Add(m.tittle);
-                DateTime receiveDate = m.date;
+                DateTime receiveDate = m.date.ToLocalTime();
                 if (receiveDate.Date == DateTime.Now.Date)
                     lvItem.SubItems.Add((receiveDate.TimeOfDay.Hours) + ":" + receiveDate.TimeOfDay.Minutes.ToString("00"));
                 else if (receiveDate.Date.Year == DateTime.Now.Date.Year)
@@ -68,7 +68,7 @@ namespace CRM.GUI.Mail
 
                 ListViewItem lvItem = new ListViewItem(add);
                 lvItem.SubItems.Add(newMail.tittle);
-                DateTime receiveDate = newMail.date;
+                DateTime receiveDate = newMail.date.ToLocalTime();
                 if (receiveDate.Date == DateTime.Now.Date)
                     lvItem.SubItems.Add((receiveDate.TimeOfDay.Hours) + ":" + receiveDate.TimeOfDay.Minutes.ToString("00"));
                 else if (receiveDate.Date.Year == DateTime.Now.Date.Year)

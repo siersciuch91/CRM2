@@ -16,6 +16,7 @@ namespace CRM.GUI
         Mail.frmSendBox frmSendBox;
         Mail.frmSendMail frmSendMail;
         Ewidencja.frmCompany frmCompany;
+        Ewidencja.frmClient frmClient;
 
         public frmCRM()
         {
@@ -90,12 +91,15 @@ namespace CRM.GUI
             if (thread != null && thread.ThreadState == ThreadState.Running)
                 thread.Abort();
 
-            DirectoryInfo directory = new DirectoryInfo(cSession.tempPath);
-            if (directory.Exists)
+            if (cSession.tempPath != null)
             {
-                foreach (System.IO.FileInfo file in directory.GetFiles()) file.Delete();
-                foreach (System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
-                directory.Delete(true);
+                DirectoryInfo directory = new DirectoryInfo(cSession.tempPath);
+                if (directory.Exists)
+                {
+                    foreach (System.IO.FileInfo file in directory.GetFiles()) file.Delete();
+                    foreach (System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+                    directory.Delete(true);
+                }
             }
 
             if (cConnection.conn.State != 0)
@@ -154,12 +158,18 @@ namespace CRM.GUI
         {
             frmCompany = new Ewidencja.frmCompany();
             frmCompany.MdiParent = this;
+            frmCompany.ControlBox = false;
+            frmCompany.WindowState = FormWindowState.Maximized;
             frmCompany.Show();
         }
 
         private void btnClient_Click(object sender, EventArgs e)
         {
-
+            frmClient = new Ewidencja.frmClient();
+            frmClient.MdiParent = this;
+            frmClient.ControlBox = false;
+            frmClient.WindowState = FormWindowState.Maximized;
+            frmClient.Show();
         }
 
         private void btnNowy_Click(object sender, EventArgs e)

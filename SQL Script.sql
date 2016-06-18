@@ -29,7 +29,7 @@ IF OBJECT_ID('dbo.company', 'U') IS NOT NULL
 create table company
 (
 	id int IDENTITY(1,1) NOT NULL primary key,
-	comapnyName varchar(255) not null,
+	companyName varchar(255) not null,
 	id_street int foreign key REFERENCES street(id) not null,
 	houseNo varchar(20) not null, 
 	nip varchar (15),
@@ -87,3 +87,14 @@ CREATE TABLE attachment
 	data image NOT NULL ,
 	name varchar(255) NOT NULL
 );
+
+
+----przykladowe dane
+
+insert into city(name, postcode) values ('rudawa', '32-064');
+insert into prefix(prefix) values ('');
+insert into street(id_city, id_prefix, name) values (1,1,'Nielepice ul. Sosnowa');
+insert into company(companyName, id_street, houseno, nip, tel, mail) values
+('Adrian', 1, '11', '11111111', '728578890', 'adrian.grzegorek@gmail.com')
+insert into client(id_company, mail, tel, name, secondname) values (1, 'siersciuch1991@gmail.com', '728578890', 
+'Adrian', 'Grzegorek');

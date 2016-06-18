@@ -44,6 +44,9 @@
             this.btnSendBox = new System.Windows.Forms.RibbonButton();
             this.btnNew = new System.Windows.Forms.RibbonButton();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
+            this.rbnFunMail = new System.Windows.Forms.RibbonPanel();
+            this.btnRefresh = new System.Windows.Forms.RibbonButton();
+            this.btnDelete = new System.Windows.Forms.RibbonButton();
             this.ribbonEwidencja = new System.Windows.Forms.RibbonTab();
             this.ribbonForm = new System.Windows.Forms.RibbonPanel();
             this.btnFirm = new System.Windows.Forms.RibbonButton();
@@ -52,9 +55,6 @@
             this.btnNowy = new System.Windows.Forms.RibbonButton();
             this.btnModyfikuj = new System.Windows.Forms.RibbonButton();
             this.btnUsun = new System.Windows.Forms.RibbonButton();
-            this.rbnFunMail = new System.Windows.Forms.RibbonPanel();
-            this.btnRefresh = new System.Windows.Forms.RibbonButton();
-            this.btnDelete = new System.Windows.Forms.RibbonButton();
             this.conMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,6 +181,26 @@
             this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
             this.ribbonButton2.Text = "ribbonButton2";
             // 
+            // rbnFunMail
+            // 
+            this.rbnFunMail.Items.Add(this.btnRefresh);
+            this.rbnFunMail.Items.Add(this.btnDelete);
+            this.rbnFunMail.Text = "Funkcje poczta";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnRefresh.SmallImage")));
+            this.btnRefresh.Text = "Odśwież";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDelete.SmallImage")));
+            this.btnDelete.Text = "Usuń wiadomość";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // ribbonEwidencja
             // 
             this.ribbonEwidencja.Panels.Add(this.ribbonForm);
@@ -234,26 +254,6 @@
             this.btnUsun.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnUsun.SmallImage")));
             this.btnUsun.Text = "Usuń";
             // 
-            // rbnFunMail
-            // 
-            this.rbnFunMail.Items.Add(this.btnRefresh);
-            this.rbnFunMail.Items.Add(this.btnDelete);
-            this.rbnFunMail.Text = "Funkcje poczta";
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnRefresh.SmallImage")));
-            this.btnRefresh.Text = "Odśwież";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnDelete.SmallImage")));
-            this.btnDelete.Text = "Usuń wiadomość";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // frmCRM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,6 +262,7 @@
             this.Controls.Add(this.ribbon1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
+            this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "frmCRM";
             this.Text = "CRM KA";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

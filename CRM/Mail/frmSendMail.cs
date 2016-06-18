@@ -35,7 +35,7 @@ namespace CRM.GUI.Mail
             mail.tittle = txtTittle.Text;
             mail.text = txtMessage.Text;
             mail.read = true;
-            mail.date = DateTime.Now;
+            mail.date = DateTime.Now.ToUniversalTime();
             mail.insertMail();
 
             this.Hide();
@@ -71,7 +71,7 @@ namespace CRM.GUI.Mail
         private void btnClient_Click(object sender, EventArgs e)
         {
             Ewidencja.frmCompany frmTemp = new Ewidencja.frmCompany();
-            frmTemp.trybReturns = true;
+            frmTemp.trybReturns = 2;
             frmTemp.ShowDialog();
             if (frmTemp.returnsMail.Trim().Length > 0)
                 txtAddress.Text = frmTemp.returnsMail.Trim();

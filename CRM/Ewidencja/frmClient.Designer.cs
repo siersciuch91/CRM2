@@ -1,6 +1,6 @@
 ﻿namespace CRM.GUI.Ewidencja
 {
-    partial class frmCompany
+    partial class frmClient
     {
         /// <summary>
         /// Required designer variable.
@@ -28,52 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvCompany = new System.Windows.Forms.ListView();
+            this.lvClient = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtFirma = new System.Windows.Forms.TextBox();
+            this.btnCompany = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTelefon = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtNip = new System.Windows.Forms.TextBox();
+            this.txtNazwisko = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtAdres = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtNazwa = new System.Windows.Forms.TextBox();
+            this.txtImie = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtAddressId = new System.Windows.Forms.NumericUpDown();
+            this.txtFirmaId = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAddressId)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirmaId)).BeginInit();
             this.SuspendLayout();
             // 
-            // lvCompany
+            // lvClient
             // 
-            this.lvCompany.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lvClient.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvCompany.Location = new System.Drawing.Point(12, 12);
-            this.lvCompany.Name = "lvCompany";
-            this.lvCompany.Size = new System.Drawing.Size(737, 435);
-            this.lvCompany.TabIndex = 0;
-            this.lvCompany.UseCompatibleStateImageBehavior = false;
-            this.lvCompany.SelectedIndexChanged += new System.EventHandler(this.lvCompany_SelectedIndexChanged);
-            this.lvCompany.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvCompany_MouseDoubleClick);
+            this.lvClient.Location = new System.Drawing.Point(12, 12);
+            this.lvClient.Name = "lvClient";
+            this.lvClient.Size = new System.Drawing.Size(737, 435);
+            this.lvClient.TabIndex = 0;
+            this.lvClient.UseCompatibleStateImageBehavior = false;
+            this.lvClient.SelectedIndexChanged += new System.EventHandler(this.lvCompany_SelectedIndexChanged);
+            this.lvClient.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvClient_MouseDoubleClick);
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.txtAddressId);
+            this.groupBox1.Controls.Add(this.txtFirmaId);
+            this.groupBox1.Controls.Add(this.txtFirma);
+            this.groupBox1.Controls.Add(this.btnCompany);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtTelefon);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtNip);
+            this.groupBox1.Controls.Add(this.txtNazwisko);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.txtAdres);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtNazwa);
+            this.groupBox1.Controls.Add(this.txtImie);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(755, 2);
@@ -81,11 +81,37 @@
             this.groupBox1.Size = new System.Drawing.Size(330, 445);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Dane";
+            // 
+            // txtFirma
+            // 
+            this.txtFirma.Location = new System.Drawing.Point(78, 103);
+            this.txtFirma.Name = "txtFirma";
+            this.txtFirma.Size = new System.Drawing.Size(235, 20);
+            this.txtFirma.TabIndex = 14;
+            // 
+            // btnCompany
+            // 
+            this.btnCompany.Location = new System.Drawing.Point(271, 77);
+            this.btnCompany.Name = "btnCompany";
+            this.btnCompany.Size = new System.Drawing.Size(42, 21);
+            this.btnCompany.TabIndex = 13;
+            this.btnCompany.Text = "...";
+            this.btnCompany.UseVisualStyleBackColor = true;
+            this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Firma:";
             // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(78, 156);
+            this.txtMail.Location = new System.Drawing.Point(78, 155);
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(235, 20);
             this.txtMail.TabIndex = 10;
@@ -93,7 +119,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 159);
+            this.label5.Location = new System.Drawing.Point(21, 158);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 9;
@@ -101,7 +127,7 @@
             // 
             // txtTelefon
             // 
-            this.txtTelefon.Location = new System.Drawing.Point(78, 130);
+            this.txtTelefon.Location = new System.Drawing.Point(78, 129);
             this.txtTelefon.Name = "txtTelefon";
             this.txtTelefon.Size = new System.Drawing.Size(235, 20);
             this.txtTelefon.TabIndex = 8;
@@ -109,59 +135,34 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 133);
+            this.label4.Location = new System.Drawing.Point(21, 132);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Telefon:";
             // 
-            // txtNip
+            // txtNazwisko
             // 
-            this.txtNip.Location = new System.Drawing.Point(78, 104);
-            this.txtNip.Name = "txtNip";
-            this.txtNip.Size = new System.Drawing.Size(235, 20);
-            this.txtNip.TabIndex = 6;
+            this.txtNazwisko.Location = new System.Drawing.Point(78, 51);
+            this.txtNazwisko.Name = "txtNazwisko";
+            this.txtNazwisko.Size = new System.Drawing.Size(235, 20);
+            this.txtNazwisko.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 107);
+            this.label3.Location = new System.Drawing.Point(21, 54);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 13);
+            this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "NIP:";
+            this.label3.Text = "Nazwisko:";
             // 
-            // button1
+            // txtImie
             // 
-            this.button1.Location = new System.Drawing.Point(247, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 21);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // txtAdres
-            // 
-            this.txtAdres.Location = new System.Drawing.Point(78, 78);
-            this.txtAdres.Name = "txtAdres";
-            this.txtAdres.Size = new System.Drawing.Size(235, 20);
-            this.txtAdres.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Adres:";
-            // 
-            // txtNazwa
-            // 
-            this.txtNazwa.Location = new System.Drawing.Point(78, 25);
-            this.txtNazwa.Name = "txtNazwa";
-            this.txtNazwa.Size = new System.Drawing.Size(235, 20);
-            this.txtNazwa.TabIndex = 1;
+            this.txtImie.Location = new System.Drawing.Point(78, 25);
+            this.txtImie.Name = "txtImie";
+            this.txtImie.Size = new System.Drawing.Size(235, 20);
+            this.txtImie.TabIndex = 1;
             // 
             // label1
             // 
@@ -172,46 +173,46 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nazwa";
             // 
-            // txtAddressId
+            // txtFirmaId
             // 
-            this.txtAddressId.Location = new System.Drawing.Point(78, 52);
-            this.txtAddressId.Name = "txtAddressId";
-            this.txtAddressId.Size = new System.Drawing.Size(163, 20);
-            this.txtAddressId.TabIndex = 11;
+            this.txtFirmaId.Location = new System.Drawing.Point(78, 78);
+            this.txtFirmaId.Name = "txtFirmaId";
+            this.txtFirmaId.Size = new System.Drawing.Size(187, 20);
+            this.txtFirmaId.TabIndex = 15;
             // 
-            // frmCompany
+            // frmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1085, 459);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lvCompany);
-            this.Name = "frmCompany";
+            this.Controls.Add(this.lvClient);
+            this.Name = "frmClient";
             this.Text = "frmCompany";
             this.Load += new System.EventHandler(this.frmCompany_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAddressId)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirmaId)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView lvCompany;
+        private System.Windows.Forms.ListView lvClient;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtTelefon;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtNip;
+        private System.Windows.Forms.TextBox txtNazwisko;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtAdres;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtImie;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtNazwa;
-        private System.Windows.Forms.NumericUpDown txtAddressId;
+        private System.Windows.Forms.Button btnCompany;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtFirma;
+        private System.Windows.Forms.NumericUpDown txtFirmaId;
     }
 }
