@@ -28,7 +28,7 @@ namespace CRM.GUI
             try
             {
                 //ustawienie połączenia
-                if (cConnection.setConnection(@"SIERSCIUCH-NB\SQL2014", "CRM", true, "", ""))//"sa", "Politechnika*2016");
+                if (!cConnection.setConnection(@"SIERSCIUCH-NB\SQL2014", "CRM", true, "", ""))//"sa", "Politechnika*2016");
                 {
                     MessageBox.Show("Nie udało sie ustanowić połączeniam, nastąpi zamknięcie programu", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
@@ -193,6 +193,7 @@ namespace CRM.GUI
         private void notifyCRM_DoubleClick(object sender, EventArgs e)
         {
             this.Show();
+            this.BringToFront();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -209,15 +210,9 @@ namespace CRM.GUI
             if (MessageBox.Show("Czy napewno chcesz usunąć tą wiadomość?", "CRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 if (tempForm == frmSendBox)
-                {
                     frmSendBox.deleteMessage();
-                }
                 else if (tempForm == frmInbox)
-                {
                     frmInbox.deleteMessage();
-                }
-
-                MessageBox.Show("Usunięto wiadomość", "CRM", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

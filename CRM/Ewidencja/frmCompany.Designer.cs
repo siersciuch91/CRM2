@@ -39,7 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtNip = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStreet = new System.Windows.Forms.Button();
             this.txtAdres = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNazwa = new System.Windows.Forms.TextBox();
@@ -74,7 +74,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtNip);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnStreet);
             this.groupBox1.Controls.Add(this.txtAdres);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtNazwa);
@@ -164,17 +164,19 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "NIP:";
             // 
-            // button1
+            // btnStreet
             // 
-            this.button1.Location = new System.Drawing.Point(247, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 21);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnStreet.Location = new System.Drawing.Point(247, 51);
+            this.btnStreet.Name = "btnStreet";
+            this.btnStreet.Size = new System.Drawing.Size(66, 21);
+            this.btnStreet.TabIndex = 4;
+            this.btnStreet.Text = "Adres";
+            this.btnStreet.UseVisualStyleBackColor = true;
+            this.btnStreet.Click += new System.EventHandler(this.btnStreet_Click);
             // 
             // txtAdres
             // 
+            this.txtAdres.Enabled = false;
             this.txtAdres.Location = new System.Drawing.Point(78, 78);
             this.txtAdres.Name = "txtAdres";
             this.txtAdres.Size = new System.Drawing.Size(235, 20);
@@ -233,7 +235,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNip;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStreet;
         private System.Windows.Forms.TextBox txtAdres;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

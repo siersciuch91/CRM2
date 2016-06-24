@@ -105,6 +105,8 @@ namespace CRM.GUI.Mail
                 return;
             }
             lvInbox.Items.Remove(lvItem);
+
+            MessageBox.Show("Usunięto wiadomość", "CRM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

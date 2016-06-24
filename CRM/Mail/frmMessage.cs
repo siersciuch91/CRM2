@@ -83,7 +83,7 @@ namespace CRM.GUI.Mail
             {
                 mail.clientId = frmTemp.returnId;
                 btnAddClient.Visible = false;
-                if (mail.updateClientMail())
+                if (!mail.updateClientMail())
                 {
                     MessageBox.Show("Nie udało się zaktualizawać wiadomościm, wybierz jeszcze raz klienta.", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;

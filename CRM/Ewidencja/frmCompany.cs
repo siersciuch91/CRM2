@@ -105,7 +105,7 @@ namespace CRM.GUI.Ewidencja
             {
                 frmClient frmTemp = new frmClient();
                 frmTemp.trybReturns = true;
-                frmTemp.addWhere = " where id_company = " + tempCompany.id;
+                frmTemp.addWhere = " and id_company = " + tempCompany.id;
                 frmTemp.ShowDialog();
                 returnsMail = frmTemp.returnsMail;
                 idClient = frmTemp.returnId;
@@ -228,6 +228,11 @@ namespace CRM.GUI.Ewidencja
             }
             lvCompany.Items.Remove(lvCompany.SelectedItems[0]);
 
+        }
+
+        private void btnStreet_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Niedokonczono ;(");
         }
     }
 }

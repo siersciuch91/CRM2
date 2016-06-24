@@ -18,7 +18,6 @@ namespace APP.CRM
                     connString += "Trusted_Connection=yes;";
 
                 conn.Open(connString, user, password);
-
                 return true;
             }
             catch

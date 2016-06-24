@@ -30,12 +30,15 @@ namespace APP.CRM
             try
             {
                 object tempObj;
+                cConnection.conn.BeginTrans();
+                cConnection.conn.Execute("Delete from attachment where messageid = " + id, out tempObj);
                 cConnection.conn.Execute("Delete from mailbox where id = " + id, out tempObj);
-
+                cConnection.conn.CommitTrans();
                 return true;
             }
             catch
             {
+                cConnection.conn.RollbackTrans();
                 return false;
             }
         }
@@ -200,9 +203,8 @@ namespace APP.CRM
                 rdMail.Close();
                 return listMail;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
                 return null;
             }
         }
@@ -245,9 +247,8 @@ namespace APP.CRM
                 rdMail.Close();
                 return listMail;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
                 return null;
             }
         }
@@ -291,9 +292,8 @@ namespace APP.CRM
                 rdMail.Close();
                 return listMail;
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show(ex.Message);
                 return null;
             }
         }

@@ -38,20 +38,20 @@ namespace APP.CRM.Mail
             try
             {
                 MailMessage mail = new MailMessage();
-
-                mail.From = new System.Net.Mail.MailAddress(cSession.login);
-                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential(cSession.login, cSession.passwordUser);
-                smtp.Host = "smtp.gmail.com";
-                mail.To.Add(new MailAddress(mailAddress));
-                mail.IsBodyHtml = true;
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress(cSession.login);
+                mail.To.Add(mailAddress);
                 mail.Subject = mailTittle;
                 mail.Body = mailText;
-                smtp.Send(mail);
+
+                foreach(Attachment a in attachments)
+                    mail.Attachments.Add(a);
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(cSession.login, cSession.passwordUser);
+                SmtpServer.EnableSsl = true;
+                SmtpServer.Send(mail);
+
                 return true;
             }
             catch

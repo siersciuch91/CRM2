@@ -1,9 +1,11 @@
 ﻿using APP.CRM;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Windows.Forms;
+using APP.CRM.Mail;
 
 namespace CRM.GUI.Mail
 {
@@ -17,13 +19,8 @@ namespace CRM.GUI.Mail
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress(cSession.login);
-            mail.To.Add(txtAddress.Text);
-            mail.Subject = txtTittle.Text;
-            mail.Body = txtMessage.Text;
 
+            List<Attachment> attList = new List<Attachment>();
 
             foreach (ListViewItem i in lvAttachments.Items)
             {
@@ -34,13 +31,19 @@ namespace CRM.GUI.Mail
                 
                 disposition.ModificationDate = System.IO.File.GetLastWriteTime(i.SubItems[1].Text);
                 disposition.ReadDate = System.IO.File.GetLastAccessTime(i.SubItems[1].Text);
-                mail.Attachments.Add(data);
+                attList.Add(data);
             }
 
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential(cSession.login, cSession.passwordUser);
-            SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+            cSendMail sendMail = new cSendMail();
+            sendMail.setMailAddress(txtAddress.Text);
+            sendMail.setMailTittle(txtTittle.Text);
+            sendMail.setMailText(txtMessage.Text);
+            sendMail.setAttachments(attList);
+            if(!sendMail.sendMail())
+            {
+                MessageBox.Show("Nie udało się wysłać wiadomości. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             cMail mailDB = new cMail();
             mailDB.address = txtAddress.Text;
