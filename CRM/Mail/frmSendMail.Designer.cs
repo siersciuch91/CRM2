@@ -40,13 +40,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnZalacz = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnFirm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtAddress
             // 
             this.txtAddress.Location = new System.Drawing.Point(153, 12);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(337, 20);
+            this.txtAddress.Size = new System.Drawing.Size(315, 20);
             this.txtAddress.TabIndex = 0;
             // 
             // btnSend
@@ -68,11 +69,11 @@
             // 
             // btnClient
             // 
-            this.btnClient.Location = new System.Drawing.Point(545, 12);
+            this.btnClient.Location = new System.Drawing.Point(532, 12);
             this.btnClient.Name = "btnClient";
-            this.btnClient.Size = new System.Drawing.Size(38, 20);
+            this.btnClient.Size = new System.Drawing.Size(51, 20);
             this.btnClient.TabIndex = 1;
-            this.btnClient.Text = "...";
+            this.btnClient.Text = "Klienci";
             this.btnClient.UseVisualStyleBackColor = true;
             this.btnClient.Click += new System.EventHandler(this.btnClient_Click);
             // 
@@ -127,9 +128,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(21, 198);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.Size = new System.Drawing.Size(60, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Treść:";
+            this.label4.Text = "Załączniki:";
             // 
             // btnZalacz
             // 
@@ -145,12 +146,23 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog";
             // 
+            // btnFirm
+            // 
+            this.btnFirm.Location = new System.Drawing.Point(474, 12);
+            this.btnFirm.Name = "btnFirm";
+            this.btnFirm.Size = new System.Drawing.Size(52, 20);
+            this.btnFirm.TabIndex = 11;
+            this.btnFirm.Text = "Firmy";
+            this.btnFirm.UseVisualStyleBackColor = true;
+            this.btnFirm.Click += new System.EventHandler(this.btnFirm_Click);
+            // 
             // frmSendMail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(598, 299);
+            this.Controls.Add(this.btnFirm);
             this.Controls.Add(this.btnZalacz);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -184,5 +196,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnZalacz;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button btnFirm;
     }
 }

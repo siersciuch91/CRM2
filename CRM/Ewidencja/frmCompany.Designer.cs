@@ -30,6 +30,9 @@
         {
             this.lvCompany = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnZrezygnuj = new System.Windows.Forms.Button();
+            this.btnZatwierdz = new System.Windows.Forms.Button();
+            this.txtAddressId = new System.Windows.Forms.NumericUpDown();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTelefon = new System.Windows.Forms.TextBox();
@@ -41,7 +44,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNazwa = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtAddressId = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtAddressId)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +65,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnZrezygnuj);
+            this.groupBox1.Controls.Add(this.btnZatwierdz);
             this.groupBox1.Controls.Add(this.txtAddressId);
             this.groupBox1.Controls.Add(this.txtMail);
             this.groupBox1.Controls.Add(this.label5);
@@ -82,6 +86,35 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // btnZrezygnuj
+            // 
+            this.btnZrezygnuj.Location = new System.Drawing.Point(238, 218);
+            this.btnZrezygnuj.Name = "btnZrezygnuj";
+            this.btnZrezygnuj.Size = new System.Drawing.Size(75, 23);
+            this.btnZrezygnuj.TabIndex = 19;
+            this.btnZrezygnuj.Text = "Zrezygnuj";
+            this.btnZrezygnuj.UseVisualStyleBackColor = true;
+            this.btnZrezygnuj.Visible = false;
+            this.btnZrezygnuj.Click += new System.EventHandler(this.btnZrezygnuj_Click);
+            // 
+            // btnZatwierdz
+            // 
+            this.btnZatwierdz.Location = new System.Drawing.Point(24, 218);
+            this.btnZatwierdz.Name = "btnZatwierdz";
+            this.btnZatwierdz.Size = new System.Drawing.Size(75, 23);
+            this.btnZatwierdz.TabIndex = 18;
+            this.btnZatwierdz.Text = "Zatwierdź";
+            this.btnZatwierdz.UseVisualStyleBackColor = true;
+            this.btnZatwierdz.Visible = false;
+            this.btnZatwierdz.Click += new System.EventHandler(this.btnZatwierdz_Click);
+            // 
+            // txtAddressId
+            // 
+            this.txtAddressId.Location = new System.Drawing.Point(78, 52);
+            this.txtAddressId.Name = "txtAddressId";
+            this.txtAddressId.Size = new System.Drawing.Size(163, 20);
+            this.txtAddressId.TabIndex = 11;
             // 
             // txtMail
             // 
@@ -172,23 +205,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nazwa";
             // 
-            // txtAddressId
-            // 
-            this.txtAddressId.Location = new System.Drawing.Point(78, 52);
-            this.txtAddressId.Name = "txtAddressId";
-            this.txtAddressId.Size = new System.Drawing.Size(163, 20);
-            this.txtAddressId.TabIndex = 11;
-            // 
             // frmCompany
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1085, 459);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lvCompany);
+            this.Controls.Add(this.groupBox1);
             this.Name = "frmCompany";
-            this.Text = "frmCompany";
+            this.Text = "Firmy";
             this.Load += new System.EventHandler(this.frmCompany_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -213,5 +239,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtNazwa;
         private System.Windows.Forms.NumericUpDown txtAddressId;
+        private System.Windows.Forms.Button btnZrezygnuj;
+        private System.Windows.Forms.Button btnZatwierdz;
     }
 }

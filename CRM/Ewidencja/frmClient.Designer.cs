@@ -30,6 +30,9 @@
         {
             this.lvClient = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnZrezygnuj = new System.Windows.Forms.Button();
+            this.btnZatwierdz = new System.Windows.Forms.Button();
+            this.txtFirmaId = new System.Windows.Forms.NumericUpDown();
             this.txtFirma = new System.Windows.Forms.TextBox();
             this.btnCompany = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +44,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtImie = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtFirmaId = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirmaId)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +65,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnZrezygnuj);
+            this.groupBox1.Controls.Add(this.btnZatwierdz);
             this.groupBox1.Controls.Add(this.txtFirmaId);
             this.groupBox1.Controls.Add(this.txtFirma);
             this.groupBox1.Controls.Add(this.btnCompany);
@@ -83,8 +87,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dane";
             // 
+            // btnZrezygnuj
+            // 
+            this.btnZrezygnuj.Location = new System.Drawing.Point(238, 252);
+            this.btnZrezygnuj.Name = "btnZrezygnuj";
+            this.btnZrezygnuj.Size = new System.Drawing.Size(75, 23);
+            this.btnZrezygnuj.TabIndex = 17;
+            this.btnZrezygnuj.Text = "Zrezygnuj";
+            this.btnZrezygnuj.UseVisualStyleBackColor = true;
+            this.btnZrezygnuj.Visible = false;
+            this.btnZrezygnuj.Click += new System.EventHandler(this.btnZrezygnuj_Click);
+            // 
+            // btnZatwierdz
+            // 
+            this.btnZatwierdz.Location = new System.Drawing.Point(24, 252);
+            this.btnZatwierdz.Name = "btnZatwierdz";
+            this.btnZatwierdz.Size = new System.Drawing.Size(75, 23);
+            this.btnZatwierdz.TabIndex = 16;
+            this.btnZatwierdz.Text = "Zatwierdź";
+            this.btnZatwierdz.UseVisualStyleBackColor = true;
+            this.btnZatwierdz.Visible = false;
+            this.btnZatwierdz.Click += new System.EventHandler(this.btnZatwierdz_Click);
+            // 
+            // txtFirmaId
+            // 
+            this.txtFirmaId.Location = new System.Drawing.Point(78, 78);
+            this.txtFirmaId.Name = "txtFirmaId";
+            this.txtFirmaId.Size = new System.Drawing.Size(187, 20);
+            this.txtFirmaId.TabIndex = 15;
+            this.txtFirmaId.ValueChanged += new System.EventHandler(this.txtFirmaId_ValueChanged);
+            // 
             // txtFirma
             // 
+            this.txtFirma.Enabled = false;
             this.txtFirma.Location = new System.Drawing.Point(78, 103);
             this.txtFirma.Name = "txtFirma";
             this.txtFirma.Size = new System.Drawing.Size(235, 20);
@@ -169,16 +204,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nazwa";
-            // 
-            // txtFirmaId
-            // 
-            this.txtFirmaId.Location = new System.Drawing.Point(78, 78);
-            this.txtFirmaId.Name = "txtFirmaId";
-            this.txtFirmaId.Size = new System.Drawing.Size(187, 20);
-            this.txtFirmaId.TabIndex = 15;
+            this.label1.Text = "Imię";
             // 
             // frmClient
             // 
@@ -189,7 +217,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lvClient);
             this.Name = "frmClient";
-            this.Text = "frmCompany";
+            this.Text = "Klienci";
             this.Load += new System.EventHandler(this.frmCompany_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -214,5 +242,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtFirma;
         private System.Windows.Forms.NumericUpDown txtFirmaId;
+        private System.Windows.Forms.Button btnZrezygnuj;
+        private System.Windows.Forms.Button btnZatwierdz;
     }
 }

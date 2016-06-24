@@ -9,17 +9,32 @@ namespace CRM.GUI.Mail
         public cMail mail;
         public frmMessage()
         {
-            
             InitializeComponent();
         }
 
         private void frmMessage_Load(object sender, System.EventArgs e)
         {
-            txtMailAddress.Text = mail.address;
+            if (mail.type == 0)
+            {
+                txtMailAddressFrom.Text = mail.address;
+                txtMailAddressTo.Text = mail.userAddress;
+            }
+            else
+            {
+                txtMailAddressTo.Text = mail.address;
+                txtMailAddressFrom.Text = mail.userAddress;
+            }
             txtTittle.Text = mail.tittle;
             txtMessText.Text = mail.text;
 
-            cAttachments.getListWithoutBin(mail.id, listView1);
+            if (mail.clientId != 0)
+                btnAddClient.Visible = false;
+
+            if (!cAttachments.getListWithoutBin(mail.id, listView1))
+            {
+                MessageBox.Show("Nie udało się załadować załączników wiadomości. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
         }
 
         private void listView1_DoubleClick(object sender, System.EventArgs e)
@@ -44,13 +59,38 @@ namespace CRM.GUI.Mail
             if (!File.Exists(filePath))
             {
                 if (tempAtt.data == null)
-                    tempAtt.getBinnary();
+                    if(!tempAtt.getBinnary())
+                    {
+                        MessageBox.Show("Nie udało się załadować załącznika. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
 
                 FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
                 fs.Write(tempAtt.data, 0, tempAtt.data.Length);
                 fs.Close();
             }
             System.Diagnostics.Process.Start(filePath);
+        }
+
+        private void btnAddClient_Click(object sender, System.EventArgs e)
+        {
+            Ewidencja.frmClient frmTemp = new Ewidencja.frmClient();
+            frmTemp.prepareNew();
+            frmTemp.setEmail(mail.address);
+            frmTemp.trybReturns = true;
+            frmTemp.ShowDialog();
+            if (frmTemp.returnId > 0)
+            {
+                mail.clientId = frmTemp.returnId;
+                btnAddClient.Visible = false;
+                if (mail.updateClientMail())
+                {
+                    MessageBox.Show("Nie udało się zaktualizawać wiadomościm, wybierz jeszcze raz klienta.", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            frmTemp.Close();
+
         }
     }
 }

@@ -37,7 +37,7 @@
             this.cmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
-            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
+            this.btnRibbonRefresh = new System.Windows.Forms.RibbonButton();
             this.ribbon = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.btnInbox = new System.Windows.Forms.RibbonButton();
@@ -55,6 +55,10 @@
             this.btnNowy = new System.Windows.Forms.RibbonButton();
             this.btnModyfikuj = new System.Windows.Forms.RibbonButton();
             this.btnUsun = new System.Windows.Forms.RibbonButton();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
+            this.rbTabCon = new System.Windows.Forms.RibbonPanel();
+            this.rbBtnCon = new System.Windows.Forms.RibbonButton();
             this.conMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +119,7 @@
             // 
             // 
             // 
-            this.ribbon1.QuickAcessToolbar.Items.Add(this.ribbonButton1);
+            this.ribbon1.QuickAcessToolbar.Items.Add(this.btnRibbonRefresh);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
             this.ribbon1.Size = new System.Drawing.Size(1054, 189);
             this.ribbon1.TabIndex = 5;
@@ -132,12 +136,14 @@
             this.ribbonOrbMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.SmallImage")));
             this.ribbonOrbMenuItem1.Text = "ribbonOrbMenuItem1";
             // 
-            // ribbonButton1
+            // btnRibbonRefresh
             // 
-            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
-            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
-            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
-            this.ribbonButton1.Text = "ribbonButton1";
+            this.btnRibbonRefresh.DropDownItems.Add(this.ribbonButton4);
+            this.btnRibbonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRibbonRefresh.Image")));
+            this.btnRibbonRefresh.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
+            this.btnRibbonRefresh.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnRibbonRefresh.SmallImage")));
+            this.btnRibbonRefresh.Text = "btnRibbonRefresh";
+            this.btnRibbonRefresh.Click += new System.EventHandler(this.btnRibbonRefresh_Click);
             // 
             // ribbon
             // 
@@ -205,6 +211,7 @@
             // 
             this.ribbonEwidencja.Panels.Add(this.ribbonForm);
             this.ribbonEwidencja.Panels.Add(this.ribbonAkcje);
+            this.ribbonEwidencja.Panels.Add(this.rbTabCon);
             this.ribbonEwidencja.Text = "Ewidencja";
             // 
             // ribbonForm
@@ -253,6 +260,29 @@
             this.btnUsun.Image = ((System.Drawing.Image)(resources.GetObject("btnUsun.Image")));
             this.btnUsun.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnUsun.SmallImage")));
             this.btnUsun.Text = "Usuń";
+            this.btnUsun.Click += new System.EventHandler(this.btnUsun_Click);
+            // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            // 
+            // ribbonButton4
+            // 
+            this.ribbonButton4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.Image")));
+            this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
+            this.ribbonButton4.Text = "ribbonButton4";
+            // 
+            // rbTabCon
+            // 
+            this.rbTabCon.Items.Add(this.rbBtnCon);
+            this.rbTabCon.Text = "Dane";
+            // 
+            // rbBtnCon
+            // 
+            this.rbBtnCon.Image = ((System.Drawing.Image)(resources.GetObject("rbBtnCon.Image")));
+            this.rbBtnCon.SmallImage = ((System.Drawing.Image)(resources.GetObject("rbBtnCon.SmallImage")));
+            this.rbBtnCon.Text = "Konwersacja";
+            this.rbBtnCon.Click += new System.EventHandler(this.rbBtnCon_Click);
             // 
             // frmCRM
             // 
@@ -282,7 +312,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmInbox;
         private System.Windows.Forms.ToolStripMenuItem cmExit;
         private System.Windows.Forms.Ribbon ribbon1;
-        private System.Windows.Forms.RibbonButton ribbonButton1;
+        private System.Windows.Forms.RibbonButton btnRibbonRefresh;
         private System.Windows.Forms.RibbonTab ribbon;
         private System.Windows.Forms.RibbonPanel ribbonPanel1;
         private System.Windows.Forms.RibbonButton btnNew;
@@ -301,6 +331,10 @@
         private System.Windows.Forms.RibbonPanel rbnFunMail;
         private System.Windows.Forms.RibbonButton btnRefresh;
         private System.Windows.Forms.RibbonButton btnDelete;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.RibbonButton ribbonButton4;
+        private System.Windows.Forms.RibbonPanel rbTabCon;
+        private System.Windows.Forms.RibbonButton rbBtnCon;
     }
 }
 

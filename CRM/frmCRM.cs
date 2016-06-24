@@ -5,13 +5,12 @@ using System.Threading;
 using APP.CRM.Mail;
 using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CRM.GUI
 {
     public partial class frmCRM : RibbonForm
     {
-        Thread thread;
-
         Mail.frmInbox frmInbox;
         Mail.frmSendBox frmSendBox;
         Mail.frmSendMail frmSendMail;
@@ -21,7 +20,7 @@ namespace CRM.GUI
         public frmCRM()
         {
             InitializeComponent();
-            
+            backgroundWorker.WorkerSupportsCancellation = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,7 +28,12 @@ namespace CRM.GUI
             try
             {
                 //ustawienie połączenia
-                cConnection.setConnection(@"SIERSCIUCH-NB\SQL2014", "CRM", true, "", ""); //"sa", "Politechnika*2016");
+                if (cConnection.setConnection(@"SIERSCIUCH-NB\SQL2014", "CRM", true, "", ""))//"sa", "Politechnika*2016");
+                {
+                    MessageBox.Show("Nie udało sie ustanowić połączeniam, nastąpi zamknięcie programu", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
                 //ekran logowania i powrot zmiennej ze statusem logowania
                 frmLogin frmlogin = new frmLogin();
                 frmlogin.ShowDialog();
@@ -44,29 +48,11 @@ namespace CRM.GUI
                 }
                 //ustawienie zmiennej w katalogu temp gdzie beda trzymane pliki
                 cSession.tempPath = Path.GetTempPath() + "\\CRM_KA\\" + cSession.userId;
-                thread = new Thread(new ThreadStart(getEmail));
-                thread.Start();
+                backgroundWorker.RunWorkerAsync();
             }
             catch
             {
                 MessageBox.Show("Nastąpił nieoczekiwany błąd programu, zostanie on zakknięty", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void getEmail()
-        {
-            cSession.inbox = new cMailBox("imap.gmail.com",
-                          993,
-                          true,
-                          cSession.login, cSession.passwordUser);
-
-            //pętla która chodzi cały czas ze sleepem, sprawdzanie maili
-            while (true)
-            {
-                
-                //if ()
-                checkNewMail();
-                Thread.Sleep(300000);//co 5 minut               
             }
         }
 
@@ -88,8 +74,11 @@ namespace CRM.GUI
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (thread != null && thread.ThreadState == ThreadState.Running)
-                thread.Abort();
+
+            if (backgroundWorker.WorkerSupportsCancellation == true)
+                backgroundWorker.CancelAsync();
+
+            cSession.inbox = null;
 
             if (cSession.tempPath != null)
             {
@@ -134,24 +123,20 @@ namespace CRM.GUI
             frmInbox = new Mail.frmInbox();
             frmInbox.MdiParent = this;
             frmInbox.Show();
-            
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             frmSendMail = new Mail.frmSendMail();
             frmSendMail.ShowDialog();
-            if (frmSendMail.mail != null )
+            if (frmSendMail.mail != null)
             {
                 if (frmSendBox != null)
                     frmSendBox.insertNewMail(frmSendMail.mail);
 
                 MessageBox.Show("Wysłano wiadomość");
             }
-                
-
             frmSendMail.Close();
-            
         }
 
         private void btnFirm_Click(object sender, EventArgs e)
@@ -175,14 +160,27 @@ namespace CRM.GUI
         private void btnNowy_Click(object sender, EventArgs e)
         {
             Form activeChild = this.ActiveMdiChild;
-            MessageBox.Show(activeChild.Name);
 
-            
+            if (activeChild == null)
+                return;
+
+            if (activeChild == frmClient)
+                frmClient.prepareNew();
+            else if (activeChild == frmCompany)
+                frmCompany.prepareNew();
         }
 
         private void btnModyfikuj_Click(object sender, EventArgs e)
         {
+            Form activeChild = this.ActiveMdiChild;
 
+            if (activeChild == null)
+                return;
+
+            if (activeChild == frmClient)
+                frmClient.prepareModify();
+            else if (activeChild == frmCompany)
+                frmCompany.prepareModify();
         }
 
         private void btnSendBox_Click(object sender, EventArgs e)
@@ -208,7 +206,7 @@ namespace CRM.GUI
             if (tempForm == null)
                 return;
 
-            if (MessageBox.Show("Czy napewno chcesz usunąć tą wiadomość?", "CRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show("Czy napewno chcesz usunąć tą wiadomość?", "CRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 if (tempForm == frmSendBox)
                 {
@@ -233,6 +231,77 @@ namespace CRM.GUI
                 btnDelete.Enabled = false;
             else
                 btnDelete.Enabled = true;
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            cSession.inbox = new cMailBox("imap.gmail.com",
+                          993,
+                          true,
+                          cSession.login, cSession.passwordUser);
+
+            //pętla która chodzi cały czas ze sleepem, sprawdzanie maili
+            while (true)
+            {
+                checkNewMail();
+                Thread.Sleep(300000);//co 5 minut   
+            }
+        }
+
+        private void btnRibbonRefresh_Click(object sender, EventArgs e)
+        {
+            Form tempForm = this.ActiveMdiChild;
+
+            if (tempForm == frmClient)
+                frmClient.refreshList();
+            else if (tempForm == frmCompany)
+                frmCompany.refreshList();
+            else
+                checkNewMail();
+        }
+
+        private void rbBtnCon_Click(object sender, EventArgs e)
+        {
+            Mail.frmMessages frmTemp;
+            Form tempForm = this.ActiveMdiChild;
+
+            if (tempForm == null)
+                return;
+
+            if (tempForm == frmClient)
+            {
+                frmTemp = new Mail.frmMessages();
+                int tempId = frmClient.returnClientId();
+                if (tempId == 0)
+                    return;
+
+                frmTemp.clientId = tempId;
+                frmTemp.ShowDialog();
+            }
+            else if (tempForm == frmCompany)
+            {
+                frmTemp = new Mail.frmMessages();
+                int tempId = frmCompany.returnCompanyId();
+                if (tempId == 0)
+                    return;
+
+                frmTemp.companyId = tempId;
+                frmTemp.ShowDialog();
+            }
+        }
+
+        private void btnUsun_Click(object sender, EventArgs e)
+        {
+            Form tempForm = this.ActiveMdiChild;
+
+            if (tempForm == null)
+                return;
+
+            if (tempForm == frmClient)
+                frmClient.deleteClient();
+            else if (tempForm == frmCompany)
+                frmCompany.deleteCompany();
         }
     }
 }

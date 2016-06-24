@@ -25,6 +25,12 @@ namespace CRM.GUI.Mail
             this.BringToFront();
             List<cMail> mailList = cMail.getSendboxMailDB();
 
+            if (mailList == null)
+            {
+                MessageBox.Show("Błąd podczas pobierania maili z bazy danych. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             normalFont = lvInbox.Font;
             boldFont = new System.Drawing.Font(lvInbox.Font, System.Drawing.FontStyle.Bold);
 
@@ -93,7 +99,11 @@ namespace CRM.GUI.Mail
         {
             ListViewItem lvItem = lvInbox.SelectedItems[0];
             cMail tempMail = lvItem.Tag as cMail;
-            tempMail.deleteMail();
+            if(!tempMail.deleteMail())
+            {
+                MessageBox.Show("Nie udało się usunąć wiadomości", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             lvInbox.Items.Remove(lvItem);
         }
     }

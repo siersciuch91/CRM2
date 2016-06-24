@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace APP.CRM
@@ -20,7 +15,7 @@ namespace APP.CRM
         /// <summary>
         /// Zapsianie załączników do bazy
         /// </summary>
-        internal void insertAttachment()
+        public bool insertAttachment()
         {
             try
             {
@@ -36,10 +31,11 @@ namespace APP.CRM
 
                 rdAtt.Update();
                 rdAtt.Close();
+                return true;
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show(ex.Message);
+                return false;
             }
         }
 
@@ -48,28 +44,36 @@ namespace APP.CRM
         /// </summary>
         /// <param name="messageId">id wiadomosci dla których maja byc pobrane</param>
         /// <param name="lvAtt">ListView do którego wczytujemy załączniki</param>
-        public static void  getListWithoutBin(int messageId, ListView lvAtt)
+        public static bool  getListWithoutBin(int messageId, ListView lvAtt)
         {
-            ADODB.Recordset rdAtt = new ADODB.Recordset();
-            string sql = "select id,  name from attachment where messageid = " +messageId;
-            rdAtt.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, 0);
-
-            string tempPath = System.IO.Path.GetTempPath();
-            while (!rdAtt.EOF)
+            try
             {
-                cAttachments attTemp = new cAttachments();
-                attTemp.id = rdAtt.Fields["ID"].Value;
-                attTemp.messageId = messageId;
-                attTemp.name = rdAtt.Fields["NAME"].Value;
+                ADODB.Recordset rdAtt = new ADODB.Recordset();
+                string sql = "select id,  name from attachment where messageid = " + messageId;
+                rdAtt.Open(sql, cConnection.conn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, 0);
 
-                ListViewItem lviTemp = new ListViewItem(attTemp.name);
+                string tempPath = System.IO.Path.GetTempPath();
+                while (!rdAtt.EOF)
+                {
+                    cAttachments attTemp = new cAttachments();
+                    attTemp.id = rdAtt.Fields["ID"].Value;
+                    attTemp.messageId = messageId;
+                    attTemp.name = rdAtt.Fields["NAME"].Value;
 
-                lviTemp.Tag = attTemp;
+                    ListViewItem lviTemp = new ListViewItem(attTemp.name);
 
-                lvAtt.Items.Add(lviTemp);
-                rdAtt.MoveNext();
+                    lviTemp.Tag = attTemp;
+
+                    lvAtt.Items.Add(lviTemp);
+                    rdAtt.MoveNext();
+                }
+                rdAtt.Close();
+                return true;
             }
-            rdAtt.Close();
+            catch
+            {
+                return false;
+            }
         }
         /// <summary>
         /// Pobranie binarek do załącznika
@@ -89,7 +93,7 @@ namespace APP.CRM
 
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }

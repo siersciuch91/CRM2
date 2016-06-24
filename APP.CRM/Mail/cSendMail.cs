@@ -30,34 +30,34 @@ namespace APP.CRM.Mail
         {
             this.attachments = value;
         }
-
-        public void sendMail()
+        /// <summary>
+        /// Metoda wysylajaca wiadomosc
+        /// </summary>
+        public bool sendMail()
         {
-            MailMessage mail = new MailMessage();
-            
+            try
+            {
+                MailMessage mail = new MailMessage();
 
-            mail.From = new System.Net.Mail.MailAddress(cSession.login);
-
-            // The important part -- configuring the SMTP client
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-            smtp.Port = 587;   // [1] You can try with 465 also, I always used 587 and got success
-            smtp.EnableSsl = true;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network; // [2] Added this
-            smtp.UseDefaultCredentials = false; // [3] Changed this
-            smtp.Credentials = new NetworkCredential(cSession.login, cSession.passwordUser);  // [4] Added this. Note, first parameter is NOT string.
-            smtp.Host = "smtp.gmail.com";
-
-            //recipient address
-            mail.To.Add(new MailAddress(mailAddress));
-            //mail.Attachments.Add()
-            //Formatted mail body
-            mail.IsBodyHtml = true;
-            mail.Subject = mailTittle;
-
-            mail.Body = mailText;
-            smtp.Send(mail);
-
-            
+                mail.From = new System.Net.Mail.MailAddress(cSession.login);
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(cSession.login, cSession.passwordUser);
+                smtp.Host = "smtp.gmail.com";
+                mail.To.Add(new MailAddress(mailAddress));
+                mail.IsBodyHtml = true;
+                mail.Subject = mailTittle;
+                mail.Body = mailText;
+                smtp.Send(mail);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

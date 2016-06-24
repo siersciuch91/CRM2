@@ -1,15 +1,8 @@
 ﻿using APP.CRM;
-using APP.CRM.Mail;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mime;
 using System.Windows.Forms;
 
 namespace CRM.GUI.Mail
@@ -21,23 +14,57 @@ namespace CRM.GUI.Mail
             InitializeComponent();
         }
         public cMail mail;
+
         private void btnSend_Click(object sender, EventArgs e)
         {
-            cSendMail sendMail = new cSendMail();
-            sendMail.setMailAddress(txtAddress.Text);
-            sendMail.setMailTittle(txtTittle.Text);
-            sendMail.setMailText(txtMessage.Text);
-            sendMail.sendMail();
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress(cSession.login);
+            mail.To.Add(txtAddress.Text);
+            mail.Subject = txtTittle.Text;
+            mail.Body = txtMessage.Text;
 
-            mail = new cMail();
-            mail.address = txtAddress.Text;
-            mail.type = 1;
-            mail.tittle = txtTittle.Text;
-            mail.text = txtMessage.Text;
-            mail.read = true;
-            mail.date = DateTime.Now.ToUniversalTime();
-            mail.insertMail();
 
+            foreach (ListViewItem i in lvAttachments.Items)
+            {
+                cAttachments att = i.Tag as cAttachments;
+                Attachment data = new Attachment(i.SubItems[1].Text, MediaTypeNames.Application.Octet);
+                ContentDisposition disposition = data.ContentDisposition;
+                disposition.CreationDate = System.IO.File.GetCreationTime(i.SubItems[1].Text);
+                
+                disposition.ModificationDate = System.IO.File.GetLastWriteTime(i.SubItems[1].Text);
+                disposition.ReadDate = System.IO.File.GetLastAccessTime(i.SubItems[1].Text);
+                mail.Attachments.Add(data);
+            }
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(cSession.login, cSession.passwordUser);
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Send(mail);
+
+            cMail mailDB = new cMail();
+            mailDB.address = txtAddress.Text;
+            mailDB.type = 1;
+            mailDB.tittle = txtTittle.Text;
+            mailDB.text = txtMessage.Text;
+            mailDB.read = true;
+            mailDB.date = DateTime.Now.ToUniversalTime();
+            if (!mailDB.insertMail())
+            {
+                MessageBox.Show("Nie udało się dodać wiadomości. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            foreach (ListViewItem i in lvAttachments.Items)
+            {
+                cAttachments attTemp = i.Tag as cAttachments;
+                attTemp.messageId = mailDB.id;
+                if (!attTemp.insertAttachment())
+                {
+                    MessageBox.Show("Nie udało się dodać załączników wiadomości. Skontaktuj się z administratorem", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
             this.Hide();
         }
 
@@ -54,6 +81,7 @@ namespace CRM.GUI.Mail
                 tempAtt.name = System.IO.Path.GetFileName(openFileDialog1.FileName);
                 tempAtt.data = File.ReadAllBytes(openFileDialog1.FileName);
                 ListViewItem lvItem = new ListViewItem(tempAtt.name);
+                lvItem.SubItems.Add(openFileDialog1.FileName);
                 lvItem.Tag = tempAtt;
                 lvAttachments.Items.Add(lvItem);
             }
@@ -69,6 +97,18 @@ namespace CRM.GUI.Mail
         }
 
         private void btnClient_Click(object sender, EventArgs e)
+        {
+            Ewidencja.frmClient frmTemp = new Ewidencja.frmClient();
+            frmTemp.trybReturns = true;
+            frmTemp.ShowDialog();
+
+            if (frmTemp.returnsMail.Trim().Length > 0)
+                txtAddress.Text = frmTemp.returnsMail.Trim();
+
+            frmTemp.Close();
+        }
+
+        private void btnFirm_Click(object sender, EventArgs e)
         {
             Ewidencja.frmCompany frmTemp = new Ewidencja.frmCompany();
             frmTemp.trybReturns = 2;
